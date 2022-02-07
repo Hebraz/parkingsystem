@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.TimeZone;
 
 public class DataBaseTestConfig extends DataBaseConfig {
 
@@ -14,7 +15,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/test","root","rootroot");
+                "jdbc:mysql://localhost:3306/test?serverTimezone=" + TimeZone.getDefault().getID(),"root","rootroot");
     }
 
     public void closeConnection(Connection con){
