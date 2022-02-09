@@ -6,7 +6,11 @@ import com.parkit.parkingsystem.model.Ticket;
 public class FareCalculatorService {
 
     public void calculateFare(Ticket ticket){
-        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
+        if((ticket.getOutTime() == null) || ticket.getInTime() == null ){
+            throw new NullPointerException("Null pointer detected In time:" +
+                    ticket.getInTime() + " ; Out time" + ticket.getOutTime());
+        }
+        if (ticket.getOutTime().before(ticket.getInTime())){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
 
