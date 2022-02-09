@@ -1,6 +1,7 @@
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\unit\service\ParkingServiceTest.java
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\unit\controller\ParkingControllerTest.java
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\unit\view\InteractiveShellTest.java
+D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\unit\config\DataBaseConfigTest.java
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\integration\service\DataBasePrepareService.java
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\unit\service\FareCalculatorServiceTest.java
 D:\Informatique\Formation JAVA OCR\PROJET 4\parkingsystem\src\test\java\com\parkit\parkingsystem\integration\config\DataBaseTestConfig.java
