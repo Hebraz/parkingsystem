@@ -1,13 +1,11 @@
 package com.parkit.parkingsystem.unit.service;
 
-import com.parkit.parkingsystem.constants.ParkingAppAction;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
-import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,12 +13,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.*;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,9 +25,7 @@ import static org.mockito.Mockito.*;
 public class ParkingServiceTest {
 
     private static ParkingService parkingService;
-    private final String VEHICULE_REG_NUMBER ="ABCDEF";
-    @Mock
-    private static InputReaderUtil inputReaderUtil;
+    private static final String VEHICULE_REG_NUMBER ="ABCDEF";
     @Mock
     private static ParkingSpotDAO parkingSpotDAO;
     @Mock
@@ -40,9 +35,10 @@ public class ParkingServiceTest {
     private void setUpPerTest() {
             parkingService = spy(new ParkingService(parkingSpotDAO, ticketDAO));
     }
+
     @Nested
     @DisplayName("Process exiting vehicle")
-    class ProcessExitingVehicle {
+    class ProcessExitingVehicleTest {
 
         @Test
         @DisplayName("Check that processExitingVehicle fails and return null" +
@@ -57,7 +53,7 @@ public class ParkingServiceTest {
             //CHECK
             verify(ticketDAO, never()).updateTicket(any(Ticket.class));
             verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
-            assertEquals(null, returnedTicket);
+            assertNull(returnedTicket);
         }
 
         @Test
@@ -76,7 +72,7 @@ public class ParkingServiceTest {
 
             //CHECK
             verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
-            assertEquals(null, returnedTicket);
+            assertNull(returnedTicket);
         }
 
         @Test
@@ -100,7 +96,7 @@ public class ParkingServiceTest {
             //CHECK
             verify(ticketDAO,never()).updateTicket(any(Ticket.class));
             verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
-            assertEquals(null, returnedTicket);
+            assertNull(returnedTicket);
         }
 
         @Test
@@ -156,10 +152,9 @@ public class ParkingServiceTest {
         }
     }
 
-
     @Nested
     @DisplayName("Process incoming vehicule")
-    class ProcessIncomingVehicle {
+    class ProcessIncomingVehicleTest {
         @Test
         @DisplayName("Check that processIncomingVehicle does not update parking spot" +
                 " and ticket when next available parking spot is null")
@@ -173,7 +168,7 @@ public class ParkingServiceTest {
             //CHECK
             verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
             verify(ticketDAO, never()).saveTicket(any(Ticket.class));
-            assertEquals(null,returnedTicket);
+            assertNull(returnedTicket);
         }
 
         @DisplayName("Check that processIncomingVehicle does not update parking spot" +
@@ -191,7 +186,7 @@ public class ParkingServiceTest {
             //CHECK
             verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
             verify(ticketDAO, never()).saveTicket(any(Ticket.class));
-            assertEquals(null,returnedTicket);
+            assertNull(returnedTicket);
         }
 
         @DisplayName("Check that processIncomingVehicle updates parking spot" +
@@ -249,7 +244,7 @@ public class ParkingServiceTest {
 
     @Nested
     @DisplayName("Get next parking number if available")
-    class GetNextParkingNumberIfAvailable {
+    class GetNextParkingNumberIfAvailableTest {
 
         @ParameterizedTest(name= "return value of getNextAvailableSlot:''{0}''")
         @ValueSource(ints = {Integer.MIN_VALUE, Integer.MIN_VALUE/2, -1, 0})
@@ -262,7 +257,7 @@ public class ParkingServiceTest {
             ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable(ParkingType.BIKE);
 
             //CHECK
-            assertEquals(null, parkingSpot);
+            assertNull(parkingSpot);
         }
 
         @ParameterizedTest(name= "available slot: type:''{0}'' ; id:''{1}''")
@@ -281,7 +276,7 @@ public class ParkingServiceTest {
             //CHECK
             assertEquals(availableSlotId, parkingSpot.getId());
             assertEquals(parkingType, parkingSpot.getParkingType());
-            assertEquals(true, parkingSpot.isAvailable());
+            assertTrue(parkingSpot.isAvailable());
 
         }
     }

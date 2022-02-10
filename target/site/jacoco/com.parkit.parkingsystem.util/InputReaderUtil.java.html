@@ -4,27 +4,27 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class InputReaderUtil {
 
-    private Scanner scan;
-<span class="fc" id="L12">    private static final Logger logger = LogManager.getLogger(&quot;InputReaderUtil&quot;);</span>
+    private final Scanner scan;
+<span class="fc" id="L13">    private static final Logger logger = LogManager.getLogger(&quot;InputReaderUtil&quot;);</span>
 
-<span class="fc" id="L14">    public InputReaderUtil(InputStream inputStream){</span>
-<span class="fc" id="L15">        scan =  new Scanner(inputStream);</span>
-<span class="fc" id="L16">    }</span>
+<span class="fc" id="L15">    public InputReaderUtil(InputStream inputStream){</span>
+<span class="fc" id="L16">        scan =  new Scanner(inputStream, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L17">    }</span>
     public int readSelection() {
         try {
-<span class="fc" id="L19">            int input = Integer.parseInt(scan.nextLine());</span>
-<span class="fc" id="L20">            return input;</span>
+<span class="fc" id="L20">            return Integer.parseInt(scan.nextLine());</span>
 <span class="fc" id="L21">        }catch(Exception e){</span>
 <span class="fc" id="L22">            logger.error(&quot;Error while reading user input from Shell&quot;, e);</span>
 <span class="fc" id="L23">            return -1;</span>
         }
     }
 
-    public String readVehicleRegistrationNumber() throws Exception {
+    public String readVehicleRegistrationNumber() {
         try {
 <span class="fc" id="L29">            String vehicleRegNumber= scan.nextLine();</span>
 

@@ -1,8 +1,6 @@
 package com.parkit.parkingsystem.unit.model;
 
-import com.parkit.parkingsystem.constants.ParkingAppAction;
 import com.parkit.parkingsystem.constants.ParkingType;
-import com.parkit.parkingsystem.controller.ParkingController;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,8 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+
 @DisplayName("ParkingSpot UT")
 class ParkingSpotTest {
 
@@ -32,11 +29,11 @@ class ParkingSpotTest {
         void testEqualsParameterNull() {
             //GIVEN
 
-            //ACTION
+            //ACTION and check
             boolean isEqual = parkingSpot.equals(null);
 
             //CHECK
-            assertEquals(false, isEqual);
+            assertFalse(isEqual);
         }
 
         @Test
@@ -48,7 +45,7 @@ class ParkingSpotTest {
             boolean isEqual = parkingSpot.equals(parkingSpotToCompare);
 
             //CHECK
-            assertEquals(false, isEqual);
+            assertFalse(isEqual);
         }
 
         @Test
@@ -60,7 +57,7 @@ class ParkingSpotTest {
             boolean isEqual = parkingSpot.equals(parkingSpotToCompare);
 
             //CHECK
-            assertEquals(false, isEqual);
+            assertFalse(isEqual);
         }
 
         @Test
@@ -72,7 +69,7 @@ class ParkingSpotTest {
             boolean isEqual = parkingSpot.equals(parkingSpotToCompare);
 
             //CHECK
-            assertEquals(true, isEqual);
+            assertTrue(isEqual);
         }
 
         @ParameterizedTest(name="number:''{0}''")
@@ -86,7 +83,7 @@ class ParkingSpotTest {
             boolean isEqual = parkingSpot.equals(parkingSpotToCompare);
 
             //CHECK
-            assertEquals(true, isEqual);
+            assertTrue(isEqual);
         }
     }
 }

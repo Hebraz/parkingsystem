@@ -35,7 +35,7 @@ class DataBaseConfigTest {
 
     @Nested
     @DisplayName("Close connection")
-    class CloseConnection {
+    class CloseConnectionTest {
         @Test
         @DisplayName("Check that closeConnection call close method of connection instance if this one is not null")
         void closeConnectionNonNullConnectionParam() throws SQLException {
@@ -50,7 +50,7 @@ class DataBaseConfigTest {
 
         @Test
         @DisplayName("Check that closeConnection does not throw an exception if connection instance is null")
-        void closeConnectionNullConnectionParam() throws SQLException {
+        void closeConnectionNullConnectionParam()  {
             //ASSUME
 
             //ACTION
@@ -60,7 +60,7 @@ class DataBaseConfigTest {
 
     @Nested
     @DisplayName("Close prepared statement")
-    class ClosePreparedStatement {
+    class ClosePreparedStatementTest {
         @Test
         @DisplayName("Check that closePreparedStatement call close method of PreparedStatement instance if this one is not null")
         void closePreparedStatementNonNullConnectionParam() throws SQLException {
@@ -75,7 +75,7 @@ class DataBaseConfigTest {
 
         @Test
         @DisplayName("Check that closePreparedStatement does not throw an exception if PreparedStatement instance is null")
-        void closePreparedStatementNullParam() throws SQLException {
+        void closePreparedStatementNullParam() {
             //ASSUME
 
             //ACTION
@@ -87,7 +87,7 @@ class DataBaseConfigTest {
 
     @Nested
     @DisplayName("Close result set")
-    class CloseResultSet {
+    class CloseResultSetTest {
         @Test
         @DisplayName("Check that closeResultSe call close method of ResultSet instance if this one is not null")
         void closeResultSetNonNullConnectionParam() throws SQLException {
@@ -102,7 +102,7 @@ class DataBaseConfigTest {
 
         @Test
         @DisplayName("Check that closeResultSe does not throw an exception if ResultSet instance is null")
-        void closeResultSetNullParam() throws SQLException {
+        void closeResultSetNullParam() {
             //ASSUME
 
             //ACTION

@@ -5,7 +5,6 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
-import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,10 +15,10 @@ public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
 
-    private static FareCalculatorService fareCalculatorService = new FareCalculatorService();
+    private static final FareCalculatorService fareCalculatorService = new FareCalculatorService();
 
-    private ParkingSpotDAO parkingSpotDAO;
-    private  TicketDAO ticketDAO;
+    private final ParkingSpotDAO parkingSpotDAO;
+    private final TicketDAO ticketDAO;
 
     public ParkingService(ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
         this.parkingSpotDAO = parkingSpotDAO;
@@ -32,7 +31,7 @@ public class ParkingService {
         ParkingSpot parkingSpot = getNextParkingNumberIfAvailable(parkingType);
         if(parkingSpot !=null && parkingSpot.getId() > 0){
             parkingSpot.setAvailable(false);
-            parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
+            parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark its availability as false
 
             Date inTime = new Date();
             ticket = new Ticket();
@@ -52,7 +51,7 @@ public class ParkingService {
 
 
     public ParkingSpot getNextParkingNumberIfAvailable(ParkingType parkingType){
-        int parkingNumber=0;
+        int parkingNumber;
         ParkingSpot parkingSpot = null;
         try{
             parkingNumber = parkingSpotDAO.getNextAvailableSlot(parkingType);
@@ -70,7 +69,7 @@ public class ParkingService {
     }
 
       public Ticket processExitingVehicle(String vehicleRegNumber) {
-        Ticket ticket = null;
+        Ticket ticket;
         try{
             ticket = ticketDAO.getTicket(vehicleRegNumber);
             if(Objects.nonNull(ticket)) {

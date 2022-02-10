@@ -1,0 +1,917 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta charset="UTF-8"/>
+      <title>SpotBugs Report</title>
+      <style type="text/css">
+		.tablerow0 {
+			background: #EEEEEE;
+		}
+
+		.tablerow1 {
+			background: white;
+		}
+
+		.detailrow0 {
+			background: #EEEEEE;
+		}
+
+		.detailrow1 {
+			background: white;
+		}
+
+		.tableheader {
+			background: #b9b9fe;
+			font-size: larger;
+		}
+		</style>
+   </head>
+   <body>
+      <h1>SpotBugs Report</h1>
+      <p>Produced using <a href="https://spotbugs.github.io">SpotBugs</a>4.4.2.</p>
+      <p>Project: 
+			parkingsystem[parking-system]</p>
+      <h2>Metrics</h2>
+      <p>1214 lines of code analyzed,
+	in 50 classes, 
+	in 18 packages.</p>
+      <table width="500" cellpadding="5" cellspacing="2">
+         <tr class="tableheader">
+            <th align="left">Metric</th>
+            <th align="right">Total</th>
+            <th align="right">Density*</th>
+         </tr>
+         <tr class="tablerow0">
+            <td>High Priority Warnings</td>
+            <td align="right">2</td>
+            <td align="right">1.65</td>
+         </tr>
+         <tr class="tablerow1">
+            <td>Medium Priority Warnings</td>
+            <td align="right">30</td>
+            <td align="right">24.71</td>
+         </tr>
+         <tr class="$totalClass">
+            <td>
+               <b>Total Warnings</b>
+            </td>
+            <td align="right">
+               <b>32</b>
+            </td>
+            <td align="right">
+               <b>26.36</b>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <i>(* Defects per Thousand lines of non-commenting source statements)</i>
+      </p>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>Summary</h2>
+      <table width="500" cellpadding="5" cellspacing="2">
+         <tr class="tableheader">
+            <th align="left">Warning Type</th>
+            <th align="right">Number</th>
+         </tr>
+         <tr class="tablerow0">
+            <td>
+               <a href="#Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+            </td>
+            <td align="right">3</td>
+         </tr>
+         <tr class="tablerow1">
+            <td>
+               <a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
+            </td>
+            <td align="right">1</td>
+         </tr>
+         <tr class="tablerow0">
+            <td>
+               <a href="#Warnings_EXPERIMENTAL">Experimental Warnings</a>
+            </td>
+            <td align="right">8</td>
+         </tr>
+         <tr class="tablerow1">
+            <td>
+               <a href="#Warnings_I18N">Internationalization Warnings</a>
+            </td>
+            <td align="right">2</td>
+         </tr>
+         <tr class="tablerow0">
+            <td>
+               <a href="#Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
+            </td>
+            <td align="right">7</td>
+         </tr>
+         <tr class="tablerow1">
+            <td>
+               <a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+            </td>
+            <td align="right">5</td>
+         </tr>
+         <tr class="tablerow0">
+            <td>
+               <a href="#Warnings_SECURITY">Security Warnings</a>
+            </td>
+            <td align="right">2</td>
+         </tr>
+         <tr class="tablerow1">
+            <td>
+               <a href="#Warnings_STYLE">Dodgy code Warnings</a>
+            </td>
+            <td align="right">4</td>
+         </tr>
+         <tr class="tablerow0">
+            <td>
+               <b>Total</b>
+            </td>
+            <td align="right">
+               <b>32</b>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h1>Warnings</h1>
+      <p>Click on each warning link to see a full description of the issue, and
+	    details of how to resolve it.</p>
+      <h2>
+         <a name="Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#ODR_OPEN_DATABASE_RESOURCE">La méthode peut ne pas fermer une ressource base de données</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket) peut ne pas fermer une ressource base de données<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java,
+					
+						line 26 26<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket)<br/>Need to close java.sql.PreparedStatement <br/>At TicketDAO.java:[line 26]<br/>At TicketDAO.java:[line 26]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#ODR_OPEN_DATABASE_RESOURCE">La méthode peut ne pas fermer une ressource base de données</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.dao.TicketDAO.updateTicket(Ticket) peut ne pas fermer une ressource base de données<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java,
+					
+						line 76 76<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.updateTicket(Ticket)<br/>Need to close java.sql.PreparedStatement <br/>At TicketDAO.java:[line 76]<br/>At TicketDAO.java:[line 76]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#ODR_OPEN_DATABASE_RESOURCE">La méthode peut ne pas fermer une ressource base de données</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.integration.service.DataBasePrepareService.clearDataBaseEntries() peut ne pas fermer une ressource base de données<br/>
+                  <br/>
+                  <br/>In file DataBasePrepareService.java DataBasePrepareService.java,
+					
+						line 17 17<br/>In class com.parkit.parkingsystem.integration.service.DataBasePrepareService<br/>In method com.parkit.parkingsystem.integration.service.DataBasePrepareService.clearDataBaseEntries()<br/>Need to close java.sql.PreparedStatement <br/>At DataBasePrepareService.java:[line 17]<br/>At DataBasePrepareService.java:[line 17]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_CORRECTNESS">Correctness Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#EC_NULL_ARG">Appel de equals() avec un argument à null</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Appel de equals() avec un argument à null dans com.parkit.parkingsystem.unit.model.ParkingSpotTest$Equals.testEqualsParameterNull()<br/>
+                  <br/>
+                  <br/>In file ParkingSpotTest.java ParkingSpotTest.java,
+					
+						line 36 36<br/>In class com.parkit.parkingsystem.unit.model.ParkingSpotTest$Equals<br/>In method com.parkit.parkingsystem.unit.model.ParkingSpotTest$Equals.testEqualsParameterNull()<br/>At ParkingSpotTest.java:[line 36]<br/>At ParkingSpotTest.java:[line 36]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_EXPERIMENTAL">Experimental Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.ParkingSpotDAO.getNextAvailableSlot(ParkingType) may fail to clean up java.sql.ResultSet on checked exception<br/>
+                  <br/>
+                  <br/>In file ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java,
+					
+						line 26 27 32 33 35 36 37<br/>In class com.parkit.parkingsystem.dao.ParkingSpotDAO<br/>In method com.parkit.parkingsystem.dao.ParkingSpotDAO.getNextAvailableSlot(ParkingType)<br/>Reference type java.sql.ResultSet<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at ParkingSpotDAO.java:[line 26] is not discharged<br/>Path continues at ParkingSpotDAO.java:[line 27]<br/>Path continues at ParkingSpotDAO.java:[line 32]<br/>Path continues at ParkingSpotDAO.java:[line 33]<br/>Path continues at ParkingSpotDAO.java:[line 35]<br/>Path continues at ParkingSpotDAO.java:[line 36]<br/>Path continues at ParkingSpotDAO.java:[line 37]<br/>Remaining obligations: {Statement x 1,ResultSet x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.ParkingSpotDAO.getNextAvailableSlot(ParkingType) may fail to clean up java.sql.Statement on checked exception<br/>
+                  <br/>
+                  <br/>In file ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java,
+					
+						line 24 25 26 27 32 33 35 36 37<br/>In class com.parkit.parkingsystem.dao.ParkingSpotDAO<br/>In method com.parkit.parkingsystem.dao.ParkingSpotDAO.getNextAvailableSlot(ParkingType)<br/>Reference type java.sql.Statement<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at ParkingSpotDAO.java:[line 24] is not discharged<br/>Path continues at ParkingSpotDAO.java:[line 25]<br/>Path continues at ParkingSpotDAO.java:[line 26]<br/>Path continues at ParkingSpotDAO.java:[line 27]<br/>Path continues at ParkingSpotDAO.java:[line 32]<br/>Path continues at ParkingSpotDAO.java:[line 33]<br/>Path continues at ParkingSpotDAO.java:[line 35]<br/>Path continues at ParkingSpotDAO.java:[line 36]<br/>Path continues at ParkingSpotDAO.java:[line 37]<br/>Remaining obligations: {Statement x 1,ResultSet x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.ParkingSpotDAO.updateParking(ParkingSpot) may fail to clean up java.sql.Statement on checked exception<br/>
+                  <br/>
+                  <br/>In file ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java ParkingSpotDAO.java,
+					
+						line 45 46 51 52 53 55 53<br/>In class com.parkit.parkingsystem.dao.ParkingSpotDAO<br/>In method com.parkit.parkingsystem.dao.ParkingSpotDAO.updateParking(ParkingSpot)<br/>Reference type java.sql.Statement<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at ParkingSpotDAO.java:[line 45] is not discharged<br/>Path continues at ParkingSpotDAO.java:[line 46]<br/>Path continues at ParkingSpotDAO.java:[line 51]<br/>Path continues at ParkingSpotDAO.java:[line 52]<br/>Path continues at ParkingSpotDAO.java:[line 53]<br/>Path continues at ParkingSpotDAO.java:[line 55]<br/>Path continues at ParkingSpotDAO.java:[line 53]<br/>Remaining obligations: {Statement x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket) may fail to clean up java.sql.Statement<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java,
+					
+						line 26 29 30 31 32 33 34 38 39<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket)<br/>Reference type java.sql.Statement<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at TicketDAO.java:[line 26] is not discharged<br/>Path continues at TicketDAO.java:[line 29]<br/>Path continues at TicketDAO.java:[line 30]<br/>Path continues at TicketDAO.java:[line 31]<br/>Path continues at TicketDAO.java:[line 32]<br/>Path continues at TicketDAO.java:[line 33]<br/>Path continues at TicketDAO.java:[line 34]<br/>Path continues at TicketDAO.java:[line 38]<br/>Path continues at TicketDAO.java:[line 39]<br/>Remaining obligations: {Statement x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.TicketDAO.updateTicket(Ticket) may fail to clean up java.sql.Statement<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java,
+					
+						line 76 77 78 79 80 81 85 81<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.updateTicket(Ticket)<br/>Reference type java.sql.Statement<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at TicketDAO.java:[line 76] is not discharged<br/>Path continues at TicketDAO.java:[line 77]<br/>Path continues at TicketDAO.java:[line 78]<br/>Path continues at TicketDAO.java:[line 79]<br/>Path continues at TicketDAO.java:[line 80]<br/>Path continues at TicketDAO.java:[line 81]<br/>Path continues at TicketDAO.java:[line 85]<br/>Path continues at TicketDAO.java:[line 81]<br/>Remaining obligations: {Statement x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.TicketDAO.getTicket(String) may fail to clean up java.sql.ResultSet on checked exception<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java,
+					
+						line 51 52 64 65 67 68<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.getTicket(String)<br/>Reference type java.sql.ResultSet<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at TicketDAO.java:[line 51] is not discharged<br/>Path continues at TicketDAO.java:[line 52]<br/>Path continues at TicketDAO.java:[line 64]<br/>Path continues at TicketDAO.java:[line 65]<br/>Path continues at TicketDAO.java:[line 67]<br/>Path continues at TicketDAO.java:[line 68]<br/>Remaining obligations: {Statement x 1,ResultSet x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.dao.TicketDAO.getTicket(String) may fail to clean up java.sql.Statement on checked exception<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java TicketDAO.java,
+					
+						line 48 50 51 52 64 65 67 68<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.getTicket(String)<br/>Reference type java.sql.Statement<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at TicketDAO.java:[line 48] is not discharged<br/>Path continues at TicketDAO.java:[line 50]<br/>Path continues at TicketDAO.java:[line 51]<br/>Path continues at TicketDAO.java:[line 52]<br/>Path continues at TicketDAO.java:[line 64]<br/>Path continues at TicketDAO.java:[line 65]<br/>Path continues at TicketDAO.java:[line 67]<br/>Path continues at TicketDAO.java:[line 68]<br/>Remaining obligations: {Statement x 1,ResultSet x 1}</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>com.parkit.parkingsystem.integration.service.DataBasePrepareService.clearDataBaseEntries() may fail to clean up java.sql.Statement<br/>
+                  <br/>
+                  <br/>In file DataBasePrepareService.java DataBasePrepareService.java DataBasePrepareService.java DataBasePrepareService.java DataBasePrepareService.java DataBasePrepareService.java,
+					
+						line 17 20 20 25 26 27<br/>In class com.parkit.parkingsystem.integration.service.DataBasePrepareService<br/>In method com.parkit.parkingsystem.integration.service.DataBasePrepareService.clearDataBaseEntries()<br/>Reference type java.sql.Statement<br/>2 instances of obligation remaining<br/>Obligation to clean up resource created at DataBasePrepareService.java:[line 17] is not discharged<br/>Path continues at DataBasePrepareService.java:[line 20]<br/>Obligation to clean up resource created at DataBasePrepareService.java:[line 20] is not discharged<br/>Path continues at DataBasePrepareService.java:[line 25]<br/>Path continues at DataBasePrepareService.java:[line 26]<br/>Path continues at DataBasePrepareService.java:[line 27]<br/>Remaining obligations: {Statement x 2}</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_I18N">Internationalization Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#DM_DEFAULT_ENCODING">Reliance on default encoding</a>
+            </td>
+            <td width="10%" valign="top">High</td>
+            <td width="70%">
+               <p>Found reliance on default encoding in com.parkit.parkingsystem.unit.util.InputReaderUtilTest.initTest(String): String.getBytes()<br/>
+                  <br/>
+                  <br/>In file InputReaderUtilTest.java InputReaderUtilTest.java,
+					
+						line 29 29<br/>In class com.parkit.parkingsystem.unit.util.InputReaderUtilTest<br/>In method com.parkit.parkingsystem.unit.util.InputReaderUtilTest.initTest(String)<br/>Called method String.getBytes()<br/>At InputReaderUtilTest.java:[line 29]<br/>At InputReaderUtilTest.java:[line 29]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#DM_DEFAULT_ENCODING">Reliance on default encoding</a>
+            </td>
+            <td width="10%" valign="top">High</td>
+            <td width="70%">
+               <p>Found reliance on default encoding in new com.parkit.parkingsystem.util.InputReaderUtil(InputStream): new java.util.Scanner(InputStream)<br/>
+                  <br/>
+                  <br/>In file InputReaderUtil.java InputReaderUtil.java,
+					
+						line 15 15<br/>In class com.parkit.parkingsystem.util.InputReaderUtil<br/>In method new com.parkit.parkingsystem.util.InputReaderUtil(InputStream)<br/>Called method new java.util.Scanner(InputStream)<br/>At InputReaderUtil.java:[line 15]<br/>At InputReaderUtil.java:[line 15]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP">Une méthode peut exposer sa représentation interne en renvoyant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.getInTime() risque d'exposer sa représentation interne en renvoyant com.parkit.parkingsystem.model.Ticket.inTime<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 47 47<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.getInTime()<br/>Field com.parkit.parkingsystem.model.Ticket.inTime<br/>At Ticket.java:[line 47]<br/>At Ticket.java:[line 47]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP">Une méthode peut exposer sa représentation interne en renvoyant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.getOutTime() risque d'exposer sa représentation interne en renvoyant com.parkit.parkingsystem.model.Ticket.outTime<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 55 55<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.getOutTime()<br/>Field com.parkit.parkingsystem.model.Ticket.outTime<br/>At Ticket.java:[line 55]<br/>At Ticket.java:[line 55]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP">Une méthode peut exposer sa représentation interne en renvoyant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.getParkingSpot() risque d'exposer sa représentation interne en renvoyant com.parkit.parkingsystem.model.Ticket.parkingSpot<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 23 23<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.getParkingSpot()<br/>Field com.parkit.parkingsystem.model.Ticket.parkingSpot<br/>At Ticket.java:[line 23]<br/>At Ticket.java:[line 23]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP2">Une méthode expose sa représentation interne en incorporant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.setInTime(Date) risque d'exposer sa représentation interne en stockant un objet externe modifiable dans com.parkit.parkingsystem.model.Ticket.inTime<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 51 51<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.setInTime(Date)<br/>Field com.parkit.parkingsystem.model.Ticket.inTime<br/>Local variable named inTime<br/>At Ticket.java:[line 51]<br/>At Ticket.java:[line 51]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP2">Une méthode expose sa représentation interne en incorporant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.setOutTime(Date) risque d'exposer sa représentation interne en stockant un objet externe modifiable dans com.parkit.parkingsystem.model.Ticket.outTime<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 59 59<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.setOutTime(Date)<br/>Field com.parkit.parkingsystem.model.Ticket.outTime<br/>Local variable named outTime<br/>At Ticket.java:[line 59]<br/>At Ticket.java:[line 59]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP2">Une méthode expose sa représentation interne en incorporant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode com.parkit.parkingsystem.model.Ticket.setParkingSpot(ParkingSpot) risque d'exposer sa représentation interne en stockant un objet externe modifiable dans com.parkit.parkingsystem.model.Ticket.parkingSpot<br/>
+                  <br/>
+                  <br/>In file Ticket.java Ticket.java,
+					
+						line 27 27<br/>In class com.parkit.parkingsystem.model.Ticket<br/>In method com.parkit.parkingsystem.model.Ticket.setParkingSpot(ParkingSpot)<br/>Field com.parkit.parkingsystem.model.Ticket.parkingSpot<br/>Local variable named parkingSpot<br/>At Ticket.java:[line 27]<br/>At Ticket.java:[line 27]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#EI_EXPOSE_REP2">Une méthode expose sa représentation interne en incorporant une référence à un objet modifiable</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La méthode new com.parkit.parkingsystem.view.InteractiveShell(InputReaderUtil, PrintStream) risque d'exposer sa représentation interne en stockant un objet externe modifiable dans com.parkit.parkingsystem.view.InteractiveShell.outStream<br/>
+                  <br/>
+                  <br/>In file InteractiveShell.java InteractiveShell.java,
+					
+						line 22 22<br/>In class com.parkit.parkingsystem.view.InteractiveShell<br/>In method new com.parkit.parkingsystem.view.InteractiveShell(InputReaderUtil, PrintStream)<br/>Field com.parkit.parkingsystem.view.InteractiveShell.outStream<br/>Local variable named outStream<br/>At InteractiveShell.java:[line 22]<br/>At InteractiveShell.java:[line 22]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_PERFORMANCE">Performance Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#SIC_INNER_SHOULD_BE_STATIC">Devrait être une classe interne statique</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La classe com.parkit.parkingsystem.unit.service.ParkingServiceTest$GetNextParkingNumberIfAvailable devrait-elle être une classe interne static ?<br/>
+                  <br/>
+                  <br/>In file ParkingServiceTest.java,
+					
+						lines 252
+						    to 286<br/>In class com.parkit.parkingsystem.unit.service.ParkingServiceTest$GetNextParkingNumberIfAvailable<br/>At ParkingServiceTest.java:[lines 252-286]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#SIC_INNER_SHOULD_BE_STATIC">Devrait être une classe interne statique</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La classe com.parkit.parkingsystem.unit.service.ParkingServiceTest$ProcessExitingVehicle devrait-elle être une classe interne static ?<br/>
+                  <br/>
+                  <br/>In file ParkingServiceTest.java,
+					
+						lines 45
+						    to 156<br/>In class com.parkit.parkingsystem.unit.service.ParkingServiceTest$ProcessExitingVehicle<br/>At ParkingServiceTest.java:[lines 45-156]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#SIC_INNER_SHOULD_BE_STATIC">Devrait être une classe interne statique</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>La classe com.parkit.parkingsystem.unit.service.ParkingServiceTest$ProcessIncomingVehicle devrait-elle être une classe interne static ?<br/>
+                  <br/>
+                  <br/>In file ParkingServiceTest.java,
+					
+						lines 162
+						    to 247<br/>In class com.parkit.parkingsystem.unit.service.ParkingServiceTest$ProcessIncomingVehicle<br/>At ParkingServiceTest.java:[lines 162-247]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#SS_SHOULD_BE_STATIC">Champ non lu : devrait-il être statique ?</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Champ non lu : com.parkit.parkingsystem.integration.ParkingDataBaseIT.vehiculeRegistrationNumber devrait-il être statique ?<br/>
+                  <br/>
+                  <br/>In file ParkingDataBaseIT.java,
+					
+						line 30<br/>In class com.parkit.parkingsystem.integration.ParkingDataBaseIT<br/>Field com.parkit.parkingsystem.integration.ParkingDataBaseIT.vehiculeRegistrationNumber<br/>At ParkingDataBaseIT.java:[line 30]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#SS_SHOULD_BE_STATIC">Champ non lu : devrait-il être statique ?</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Champ non lu : com.parkit.parkingsystem.unit.service.ParkingServiceTest.VEHICULE_REG_NUMBER devrait-il être statique ?<br/>
+                  <br/>
+                  <br/>In file ParkingServiceTest.java,
+					
+						line 31<br/>In class com.parkit.parkingsystem.unit.service.ParkingServiceTest<br/>Field com.parkit.parkingsystem.unit.service.ParkingServiceTest.VEHICULE_REG_NUMBER<br/>At ParkingServiceTest.java:[line 31]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_SECURITY">Security Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#DMI_CONSTANT_DB_PASSWORD">Hardcoded constant database password</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Hardcoded constant database password in com.parkit.parkingsystem.config.DataBaseConfig.getConnection()<br/>
+                  <br/>
+                  <br/>In file DataBaseConfig.java DataBaseConfig.java,
+					
+						line 16 16<br/>In class com.parkit.parkingsystem.config.DataBaseConfig<br/>In method com.parkit.parkingsystem.config.DataBaseConfig.getConnection()<br/>At DataBaseConfig.java:[line 16]<br/>At DataBaseConfig.java:[line 16]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#DMI_CONSTANT_DB_PASSWORD">Hardcoded constant database password</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Hardcoded constant database password in com.parkit.parkingsystem.integration.config.DataBaseTestConfig.getConnection()<br/>
+                  <br/>
+                  <br/>In file DataBaseTestConfig.java DataBaseTestConfig.java,
+					
+						line 17 17<br/>In class com.parkit.parkingsystem.integration.config.DataBaseTestConfig<br/>In method com.parkit.parkingsystem.integration.config.DataBaseTestConfig.getConnection()<br/>At DataBaseTestConfig.java:[line 17]<br/>At DataBaseTestConfig.java:[line 17]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="Warnings_STYLE">Dodgy code Warnings</a>
+      </h2>
+      <table class="warningtable"
+             width="100%"
+             cellspacing="2"
+             cellpadding="5">
+         <tr class="tableheader">
+            <th align="left">Warning</th>
+            <th align="left">Priority</th>
+            <th align="left">Details</th>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#DLS_DEAD_LOCAL_STORE">Alimentation à perte d'une variable locale</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Alimentation à perte d'une variable locale dans la méthode com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket)<br/>
+                  <br/>
+                  <br/>In file TicketDAO.java TicketDAO.java,
+					
+						line 34 34<br/>In class com.parkit.parkingsystem.dao.TicketDAO<br/>In method com.parkit.parkingsystem.dao.TicketDAO.saveTicket(Ticket)<br/>Local variable stored in JVM register 4<br/>At TicketDAO.java:[line 34]<br/>At TicketDAO.java:[line 34]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">Return value of method without side effect is ignored</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Return value of com.parkit.parkingsystem.controller.ParkingController.isContinueApp() ignored, but method has no side effect<br/>
+                  <br/>
+                  <br/>In file ParkingControllerTest.java ParkingControllerTest.java,
+					
+						line 74 74<br/>In class com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start<br/>In method com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start.start_exitingVehicle()<br/>Called method com.parkit.parkingsystem.controller.ParkingController.isContinueApp()<br/>At ParkingControllerTest.java:[line 74]<br/>At ParkingControllerTest.java:[line 74]</p>
+            </td>
+         </tr>
+         <tr class="tablerow1">
+            <td width="20%" valign="top">
+               <a href="#RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">Return value of method without side effect is ignored</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Return value of com.parkit.parkingsystem.controller.ParkingController.isContinueApp() ignored, but method has no side effect<br/>
+                  <br/>
+                  <br/>In file ParkingControllerTest.java ParkingControllerTest.java,
+					
+						line 54 54<br/>In class com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start<br/>In method com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start.start_incomingVehicle()<br/>Called method com.parkit.parkingsystem.controller.ParkingController.isContinueApp()<br/>At ParkingControllerTest.java:[line 54]<br/>At ParkingControllerTest.java:[line 54]</p>
+            </td>
+         </tr>
+         <tr class="tablerow0">
+            <td width="20%" valign="top">
+               <a href="#RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">Return value of method without side effect is ignored</a>
+            </td>
+            <td width="10%" valign="top">Medium</td>
+            <td width="70%">
+               <p>Return value of com.parkit.parkingsystem.controller.ParkingController.isContinueApp() ignored, but method has no side effect<br/>
+                  <br/>
+                  <br/>In file ParkingControllerTest.java ParkingControllerTest.java,
+					
+						line 112 112<br/>In class com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start<br/>In method com.parkit.parkingsystem.unit.controller.ParkingControllerTest$Start.start_unknownAction()<br/>Called method com.parkit.parkingsystem.controller.ParkingController.isContinueApp()<br/>At ParkingControllerTest.java:[line 112]<br/>At ParkingControllerTest.java:[line 112]</p>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h1>
+         <a name="Details">Warning Types</a>
+      </h1>
+      <h2>
+         <a name="DLS_DEAD_LOCAL_STORE">Alimentation à perte d'une variable locale</a>
+      </h2>
+
+<p>Cette instruction assigne une valeur à une variable locale mais cette variable n'est pas lue par la suite. Ceci indique souvent une erreur puisque la valeur calculée n'est jamais utilisée.</p>
+<p>Notez que le compilateur javac de Sun génère fréquemment ce genre d'affectations à perte. FindBugs analysant le byte-code généré, il n'y a pas de façon simple d'éliminer ces fausses alarmes.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="DMI_CONSTANT_DB_PASSWORD">Hardcoded constant database password</a>
+      </h2>
+      
+    <p>This code creates a database connect using a hardcoded, constant password. Anyone with access to either the source code or the compiled code can
+    easily learn the password.
+</p>
+
+
+    <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="DM_DEFAULT_ENCODING">Reliance on default encoding</a>
+      </h2>
+
+<p> Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable. This will cause the application behaviour to vary between platforms. Use an alternative API and specify a charset name or Charset object explicitly.  </p>
+
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="EC_NULL_ARG">Appel de equals() avec un argument à null</a>
+      </h2>
+
+<p>Cette méthode appelle <code>equals(Object)</code>, passant une valeur à <code>null</code> comme argument. D'après le contrat de la méthode <code>equals()</code>, cet appel devrait systématiquement renvoyer <code>false</code>.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="EI_EXPOSE_REP">Une méthode peut exposer sa représentation interne en renvoyant une référence à un objet modifiable</a>
+      </h2>
+
+<p>Renvoyer une référence à un objet modifiable stocké dans les champs d'un objet expose la représentation interne de l'objet. Si des instances sont accédées par du code non fiable, et que des modifications non vérifiées peuvent compromettre la sécurité ou d'autres propriétés importantes, vous devez faire autre chose. Renvoyer une nouvelle copie de l'objet est une meilleur approche dans de nombreuses situations.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="EI_EXPOSE_REP2">Une méthode expose sa représentation interne en incorporant une référence à un objet modifiable</a>
+      </h2>
+
+<p>Ce code stocke une référence à un objet externe modifiable dans la représentation interne de l'objet. Si des instances sont accédées par du code non fiable, et que des modifications non vérifiées peuvent compromettre la sécurité ou d'autres propriétés importantes, vous devez faire autre chose. Stocker une copie de l'objet est une meilleur approche dans de nombreuses situations.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
+      </h2>
+          
+          <p>
+          This method may fail to clean up (close, dispose of) a stream,
+          database object, or other
+          resource requiring an explicit cleanup operation.
+          </p>
+
+          <p>
+          In general, if a method opens a stream or other resource,
+          the method should use a try/finally block to ensure that
+          the stream or resource is cleaned up before the method
+          returns.
+          </p>
+
+          <p>
+          This bug pattern is essentially the same as the
+          OS_OPEN_STREAM and ODR_OPEN_DATABASE_RESOURCE
+          bug patterns, but is based on a different
+          (and hopefully better) static analysis technique.
+          We are interested is getting feedback about the
+          usefulness of this bug pattern.
+          For sending feedback, check:
+          </p>
+          <ul>
+            <li><a href="https://github.com/spotbugs/spotbugs/blob/master/CONTRIBUTING.md">contributing guideline</a></li>
+            <li><a href="https://github.com/spotbugs/discuss/issues?q=">malinglist</a></li>
+          </ul>
+
+          <p>
+          In particular,
+          the false-positive suppression heuristics for this
+          bug pattern have not been extensively tuned, so
+          reports about false positives are helpful to us.
+          </p>
+
+          <p>
+          See Weimer and Necula, <i>Finding and Preventing Run-Time Error Handling Mistakes</i>, for
+          a description of the analysis technique.
+          </p>
+          
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">Method may fail to clean up stream or resource on checked exception</a>
+      </h2>
+          
+          <p>
+          This method may fail to clean up (close, dispose of) a stream,
+          database object, or other
+          resource requiring an explicit cleanup operation.
+          </p>
+
+          <p>
+          In general, if a method opens a stream or other resource,
+          the method should use a try/finally block to ensure that
+          the stream or resource is cleaned up before the method
+          returns.
+          </p>
+
+          <p>
+          This bug pattern is essentially the same as the
+          OS_OPEN_STREAM and ODR_OPEN_DATABASE_RESOURCE
+          bug patterns, but is based on a different
+          (and hopefully better) static analysis technique.
+          We are interested is getting feedback about the
+          usefulness of this bug pattern.
+          For sending feedback, check:
+          </p>
+          <ul>
+            <li><a href="https://github.com/spotbugs/spotbugs/blob/master/CONTRIBUTING.md">contributing guideline</a></li>
+            <li><a href="https://github.com/spotbugs/discuss/issues?q=">malinglist</a></li>
+          </ul>
+
+          <p>
+          In particular,
+          the false-positive suppression heuristics for this
+          bug pattern have not been extensively tuned, so
+          reports about false positives are helpful to us.
+          </p>
+
+          <p>
+          See Weimer and Necula, <i>Finding and Preventing Run-Time Error Handling Mistakes</i>, for
+          a description of the analysis technique.
+          </p>
+          
+      <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="ODR_OPEN_DATABASE_RESOURCE">La méthode peut ne pas fermer une ressource base de données</a>
+      </h2>
+
+<p>Cette méthode crée une ressource base de données (telle qu'une connexion ou un <code>RowSet</code>), ne l'affecte à aucun champ, ne la passe à aucune autre méthode, ne la renvoie pas, et ne semble pas la fermer dans tous les chemins d'exécution. Ne pas fermer une ressource base de données dans tous les chemins d'exécution peut entraîner de faibles performances et poser des problèmes de communication entre la base de données et l'application.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">Return value of method without side effect is ignored</a>
+      </h2>
+
+<p>This code calls a method and ignores the return value. However our analysis shows that
+the method (including its implementations in subclasses if any) does not produce any effect
+other than return value. Thus this call can be removed.
+</p>
+<p>We are trying to reduce the false positives as much as possible, but in some cases this warning might be wrong.
+Common false-positive cases include:</p>
+<p>- The method is designed to be overridden and produce a side effect in other projects which are out of the scope of the analysis.</p>
+<p>- The method is called to trigger the class loading which may have a side effect.</p>
+<p>- The method is called just to get some exception.</p>
+<p>If you feel that our assumption is incorrect, you can use a @CheckReturnValue annotation
+to instruct SpotBugs that ignoring the return value of this method is acceptable.
+</p>
+
+    <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="SIC_INNER_SHOULD_BE_STATIC">Devrait être une classe interne statique</a>
+      </h2>
+
+<p>Cette classe est une classe interne, mais n'utilise pas sa référence vers l'objet qui l'a créée. Cette référence rend les instances de cette classe plus grosses et peut garder active la référence à l'objet créateur plus longtemps que nécessaire. Si possible, la classe devrait être transformée en classe interne <code>static</code>.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+      <h2>
+         <a name="SS_SHOULD_BE_STATIC">Champ non lu : devrait-il être statique ?</a>
+      </h2>
+
+<p>Cette classe contient un champ d'instance <code>final</code> qui est initialisé par une valeur statique déterminée à la compilation. Envisagez de rendre ce champ <code>static</code>.</p>
+
+  <p>
+         <br/>
+         <br/>
+      </p>
+   </body>
+</html>

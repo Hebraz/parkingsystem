@@ -45,13 +45,13 @@ class ParkingControllerTest {
 
     @Nested
     @DisplayName("Start")
-    class Start{
+    class StartTest{
         @Test
         @DisplayName("Check that parkingController executes vehicle entering action when user select it")
-        void start_incomingVehicle() throws Exception {
+        void start_incomingVehicle()  {
             //ASSUMING
-            doReturn(ParkingAppAction.INCOMING_VEHICULE).when(parkingController).getParkingAppAction();
-            doReturn(true,false).when(parkingController).isContinueApp();
+            doReturn(ParkingAppAction.INCOMING_VEHICLE).when(parkingController).getParkingAppAction();
+            when(parkingController.isContinueApp()).thenReturn(true).thenReturn(false);
             doNothing().when(parkingController).processIncomingVehicle();
 
             //ACTION
@@ -68,10 +68,10 @@ class ParkingControllerTest {
 
         @Test
         @DisplayName("Check that parkingController executes vehicle exiting action when user select it")
-        void start_exitingVehicle() throws Exception {
+        void start_exitingVehicle()  {
             //ASSUMING
-            doReturn(ParkingAppAction.EXITING_VEHICULE).when(parkingController).getParkingAppAction();
-            doReturn(true,false).when(parkingController).isContinueApp();
+            doReturn(ParkingAppAction.EXITING_VEHICLE).when(parkingController).getParkingAppAction();
+            when(parkingController.isContinueApp()).thenReturn(true).thenReturn(false);
             doNothing().when(parkingController).processExitingVehicle();
 
             //ACTION
@@ -88,7 +88,7 @@ class ParkingControllerTest {
 
         @Test
         @DisplayName("Check that parkingController executes exiting application action when user select it")
-        void start_exitingApplication() throws Exception {
+        void start_exitingApplication() {
             //ASSUMING
             doReturn(ParkingAppAction.EXIT_APPLICATION).when(parkingController).getParkingAppAction();
 
@@ -106,10 +106,10 @@ class ParkingControllerTest {
 
         @Test
         @DisplayName("Check that parkingController returns an error when unknown action is selected ")
-        void start_unknownAction() throws Exception {
+        void start_unknownAction() {
             //ASSUMING
             doReturn(ParkingAppAction.UNKNOWN).when(parkingController).getParkingAppAction();
-            doReturn(true,false).when(parkingController).isContinueApp();
+           when(parkingController.isContinueApp()).thenReturn(true).thenReturn(false);
 
             //ACTION
             parkingController.start();
@@ -126,7 +126,7 @@ class ParkingControllerTest {
 
     @Nested
     @DisplayName("Process exiting vehicle")
-    class ProcessExitingVehicle{
+    class ProcessExitingVehicleTest{
         @Test
         @DisplayName("Checks processExitingVehicle when no exception is thrown")
         void processExitingVehicle_ok() throws Exception {
@@ -139,7 +139,7 @@ class ParkingControllerTest {
             ticket.setOutTime(now);
             ticket.setParkingSpot(new ParkingSpot(1,ParkingType.CAR,true));
 
-            when(interactiveShell.getVehichleRegNumber()).thenReturn("AZERTY");
+            when(interactiveShell.getVehicleRegNumber()).thenReturn("AZERTY");
             when(parkingService.processExitingVehicle(anyString())).thenReturn(ticket);
 
             //ACTION
@@ -154,7 +154,7 @@ class ParkingControllerTest {
         @DisplayName("Checks processExitingVehicle print an error when an exception is thrown")
         void processExitingVehicle_Error() throws Exception {
             //ASSUMING
-            when(interactiveShell.getVehichleRegNumber()).thenThrow(new Exception("Error to display"));
+            when(interactiveShell.getVehicleRegNumber()).thenThrow(new Exception("Error to display"));
 
             //ACTION
             parkingController.processExitingVehicle();
@@ -166,7 +166,7 @@ class ParkingControllerTest {
 
     @Nested
     @DisplayName("Process incoming vehicle")
-    class ProcessIncomingVehicle {
+    class ProcessIncomingVehicleTest {
         @Test
         @DisplayName("Checks that processIncomingVehicle enables to process CAR incoming")
         void processIncomingVehicle_Car() throws Exception {
@@ -178,7 +178,7 @@ class ParkingControllerTest {
             ticket.setInTime(now);
             ticket.setParkingSpot(new ParkingSpot(1,ParkingType.CAR,false));
 
-            when(interactiveShell.getVehichleRegNumber()).thenReturn("AZERTY");
+            when(interactiveShell.getVehicleRegNumber()).thenReturn("AZERTY");
             when(parkingService.processIncomingVehicle(any(ParkingType.class), anyString())).thenReturn(ticket);
             doReturn(ParkingType.CAR).when(parkingController).getParkingType();
 
@@ -201,7 +201,7 @@ class ParkingControllerTest {
             ticket.setInTime(now);
             ticket.setParkingSpot(new ParkingSpot(1,ParkingType.CAR,false));
 
-            when(interactiveShell.getVehichleRegNumber()).thenReturn("XXXX");
+            when(interactiveShell.getVehicleRegNumber()).thenReturn("XXXX");
             when(parkingService.processIncomingVehicle(any(ParkingType.class), anyString())).thenReturn(ticket);
             doReturn(ParkingType.BIKE).when(parkingController).getParkingType();
 
@@ -217,7 +217,7 @@ class ParkingControllerTest {
         @DisplayName("Checks that processIncomingVehicle generates an error when an exception is thrown")
         void processIncomingVehicle_Error() throws Exception {
             //ASSUMING
-            when(interactiveShell.getVehichleRegNumber()).thenThrow(new Exception("Error to display"));
+            when(interactiveShell.getVehicleRegNumber()).thenThrow(new Exception("Error to display"));
 
             //ACTION
             parkingController.processIncomingVehicle();
@@ -229,13 +229,13 @@ class ParkingControllerTest {
 
     @Nested
     @DisplayName("Get parking type")
-    class GetParkingType {
+    class GetParkingTypeTest {
         @DisplayName("Checks that GetParkingType returns correct ParkingType according to a given selection")
         @ParameterizedTest(name = "selection: ''{0}'', expected parkingType ''{1}''")
         @CsvSource({ "1, CAR" , "2, BIKE" } )
         void getParkingType_Ok(int selection, String expectedParkingType) {
             //ASSUMING
-            when(interactiveShell.getVehichleType()).thenReturn(selection);
+            when(interactiveShell.getVehicleType()).thenReturn(selection);
 
             //ACTION
             ParkingType computedParkingType = parkingController.getParkingType();
@@ -249,7 +249,7 @@ class ParkingControllerTest {
         @ValueSource(ints = { 0, -1, 3, Integer.MIN_VALUE, Integer.MAX_VALUE} )
         void getParkingType_Nok(int selection) {
             //ASSUMING
-            when(interactiveShell.getVehichleType()).thenReturn(selection);
+            when(interactiveShell.getVehicleType()).thenReturn(selection);
 
             //ACTION
             assertThrows(IllegalArgumentException.class, () -> parkingController.getParkingType());
@@ -258,11 +258,11 @@ class ParkingControllerTest {
 
     @Nested
     @DisplayName("Get parking app action")
-    class GetParkingAppAction {
+    class GetParkingAppActionTest {
 
         @DisplayName("Checks that GetParkingAppAction returns correct ParkingAppAction according to a given selection")
         @ParameterizedTest(name = "selection: ''{0}'', expected ParkingAppAction ''{1}''")
-        @CsvSource({ "1, INCOMING_VEHICULE" , "2, EXITING_VEHICULE", "3, EXIT_APPLICATION" } )
+        @CsvSource({ "1, INCOMING_VEHICLE" , "2, EXITING_VEHICLE", "3, EXIT_APPLICATION" } )
         void getParkingAppAction_Ok(int selection, String expectedParkingAppAction) {
             //ASSUMING
             when(interactiveShell.getParkingAction()).thenReturn(selection);

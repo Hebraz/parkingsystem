@@ -6,8 +6,6 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.FareCalculatorService;
 import org.junit.jupiter.api.*;
-import org.mockito.internal.matchers.Null;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
@@ -29,7 +27,7 @@ public class FareCalculatorServiceTest {
 
     @Nested
     @DisplayName("Calculate Fare")
-    class calculateFare {
+    class CalculateFareTest {
         @Test
         @DisplayName("Check fare rate for a car")
         public void calculateFareCar(){
@@ -136,11 +134,10 @@ public class FareCalculatorServiceTest {
         @Test
         @DisplayName("Check calculateFare throws exception when in time is null")
         public void calculateFareCarWithInTimeNull(){
-            Date inTime = null;
             Date outTime = new Date();
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
 
-            ticket.setInTime(inTime);
+            ticket.setInTime(null);
             ticket.setOutTime(outTime);
             ticket.setParkingSpot(parkingSpot);
             assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
@@ -151,11 +148,10 @@ public class FareCalculatorServiceTest {
         public void calculateFareCarWithOutTimeNull(){
             Date inTime = new Date();
             inTime.setTime( System.currentTimeMillis() - (  24 * 60 * 60 * 1000) );//24 hours parking time should give 24 * parking fare per hour
-            Date outTime = null;
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
 
             ticket.setInTime(inTime);
-            ticket.setOutTime(outTime);
+            ticket.setOutTime(null);
             ticket.setParkingSpot(parkingSpot);
             assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
         }

@@ -1,36 +1,32 @@
 package com.parkit.parkingsystem.integration;
 
-import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
-import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
-import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
-    private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static ParkingSpotDAO parkingSpotDAO;
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
-    private final String vehiculeRegistrationNumber = "ABCDEF";
+    private static final  String vehiculeRegistrationNumber = "ABCDEF";
 
     @BeforeAll
-    private static void setUp() throws Exception{
+    private static void setUp() {
         parkingSpotDAO = new ParkingSpotDAO();
         parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
         ticketDAO = new TicketDAO();
@@ -39,13 +35,8 @@ public class ParkingDataBaseIT {
     }
 
     @BeforeEach
-    private void setUpPerTest() throws Exception {
+    private void setUpPerTest()  {
         dataBasePrepareService.clearDataBaseEntries();
-    }
-
-    @AfterAll
-    private static void tearDown(){
-
     }
 
     @Test
@@ -54,7 +45,7 @@ public class ParkingDataBaseIT {
         //PRE CHECK
         //Try to retrieve ticket from database : no ticket shall be in the database before processing Incoming
         Ticket ticket = ticketDAO.getTicket(vehiculeRegistrationNumber);
-        assertEquals(null, ticket);
+        assertNull(ticket);
         //Next available slot shall be 1
         int parkingSpotNumber = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
         assertEquals(1, parkingSpotNumber);
@@ -69,9 +60,9 @@ public class ParkingDataBaseIT {
         assertEquals(vehiculeRegistrationNumber, ticket.getVehicleRegNumber());
         assertEquals(1, ticket.getParkingSpot().getId());
         assertEquals(ParkingType.CAR, ticket.getParkingSpot().getParkingType());
-        assertEquals(false, ticket.getParkingSpot().isAvailable());
+        assertFalse(ticket.getParkingSpot().isAvailable());
         assertNotEquals(null, ticket.getInTime());
-        assertEquals(null, ticket.getOutTime());
+        assertNull(ticket.getOutTime());
 
         //Check that next available slot is 2
         parkingSpotNumber = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
@@ -96,7 +87,7 @@ public class ParkingDataBaseIT {
         assertEquals(vehiculeRegistrationNumber, ticket.getVehicleRegNumber());
         assertEquals(1, ticket.getParkingSpot().getId());
         assertEquals(ParkingType.CAR, ticket.getParkingSpot().getParkingType());
-        assertEquals(false, ticket.getParkingSpot().isAvailable());
+        assertFalse(ticket.getParkingSpot().isAvailable());
 
         assertNotEquals(null, ticket.getInTime());
         assertNotEquals(null, ticket.getOutTime());

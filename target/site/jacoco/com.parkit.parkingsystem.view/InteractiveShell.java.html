@@ -13,9 +13,9 @@ public class InteractiveShell {
 
 <span class="fc" id="L14">    private static final Logger logger = LogManager.getLogger(&quot;InteractiveShell&quot;);</span>
 
-    private InputReaderUtil inputReaderUtil;
-    private PrintStream outStream;
-    private SimpleDateFormat dateFormater;
+    private final InputReaderUtil inputReaderUtil;
+    private final PrintStream outStream;
+    private final SimpleDateFormat dateFormater;
 
 <span class="fc" id="L20">    public InteractiveShell(InputReaderUtil inputReaderUtil, PrintStream outStream) {</span>
 <span class="fc" id="L21">        this.inputReaderUtil = inputReaderUtil;</span>
@@ -37,12 +37,12 @@ public class InteractiveShell {
 <span class="fc" id="L37">        return inputReaderUtil.readSelection();</span>
     }
 
-    public String getVehichleRegNumber() throws Exception {
+    public String getVehicleRegNumber() throws Exception {
 <span class="fc" id="L41">        outStream.println(&quot;Please type the vehicle registration number and press enter key&quot;);</span>
 <span class="fc" id="L42">        return inputReaderUtil.readVehicleRegistrationNumber();</span>
     }
 
-    public int getVehichleType(){
+    public int getVehicleType(){
 <span class="fc" id="L46">        outStream.println(&quot;Please select vehicle type from menu&quot;);</span>
 <span class="fc" id="L47">        outStream.println(&quot;1 CAR&quot;);</span>
 <span class="fc" id="L48">        outStream.println(&quot;2 BIKE&quot;);</span>

@@ -5,15 +5,11 @@ import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.view.InteractiveShell;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ParkingController{
 
-    private static final Logger logger = LogManager.getLogger("InteractiveShell");
-
-    private  ParkingService parkingService;
-    private InteractiveShell interactiveShell;
+    private final  ParkingService parkingService;
+    private final InteractiveShell interactiveShell;
     private boolean continueApp;
 
     public ParkingController(InteractiveShell interactiveShell, ParkingService parkingService) {
@@ -30,10 +26,10 @@ public class ParkingController{
         while(isContinueApp()) {
             appAction = getParkingAppAction();
             switch (appAction) {
-                case INCOMING_VEHICULE:
+                case INCOMING_VEHICLE:
                     processIncomingVehicle();
                     break;
-                case EXITING_VEHICULE:
+                case EXITING_VEHICLE:
                     processExitingVehicle();
                     break;
                 case EXIT_APPLICATION:
@@ -51,7 +47,7 @@ public class ParkingController{
     public void processExitingVehicle() {
         String vehicleRegNumber;
         try {
-            vehicleRegNumber = interactiveShell.getVehichleRegNumber();
+            vehicleRegNumber = interactiveShell.getVehicleRegNumber();
             Ticket ticket = parkingService.processExitingVehicle(vehicleRegNumber);
             interactiveShell.printExitingVehicleInfo(ticket);
         }
@@ -63,7 +59,7 @@ public class ParkingController{
     public void processIncomingVehicle() {
         String vehicleRegNumber;
         try {
-            vehicleRegNumber = interactiveShell.getVehichleRegNumber();
+            vehicleRegNumber = interactiveShell.getVehicleRegNumber();
             ParkingType parkingType = getParkingType();
             Ticket ticket = parkingService.processIncomingVehicle(parkingType, vehicleRegNumber);
             interactiveShell.printIncomingVehicleInfo(ticket);
@@ -77,7 +73,7 @@ public class ParkingController{
        ParkingType parkingTypeToReturn;
        int parkingTypeFromView;
 
-        parkingTypeFromView = interactiveShell.getVehichleType();
+        parkingTypeFromView = interactiveShell.getVehicleType();
        switch(parkingTypeFromView) {
            case 1:
                 parkingTypeToReturn = ParkingType.CAR;
@@ -98,10 +94,10 @@ public class ParkingController{
         parkingAppActionFromView = interactiveShell.getParkingAction();
         switch (parkingAppActionFromView) {
             case 1:
-                parkingAppActionToReturn = ParkingAppAction.INCOMING_VEHICULE;
+                parkingAppActionToReturn = ParkingAppAction.INCOMING_VEHICLE;
                 break;
             case 2:
-                parkingAppActionToReturn = ParkingAppAction.EXITING_VEHICULE;
+                parkingAppActionToReturn = ParkingAppAction.EXITING_VEHICLE;
                 break;
             case 3:
                 parkingAppActionToReturn = ParkingAppAction.EXIT_APPLICATION;

@@ -43,7 +43,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Start interface")
-    class StartInterface {
+    class StartInterfaceTest {
 
         @Test
         @DisplayName("Check that startInterface outputs expected welcome message")
@@ -57,7 +57,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Get parking action")
-    class GetParkingAction {
+    class GetParkingActionTest {
 
         @DisplayName("Check that getParkingAction outputs expected parking actions and returns user entry")
         @ParameterizedTest(name = "user entry: ''{0}''")
@@ -79,7 +79,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Get vehicle regular number")
-    class GetVehicleRegNumber {
+    class GetVehicleRegNumberTest {
 
         @DisplayName("Check that getVehicleRegNumber outputs expected message and returns user entry")
         @ParameterizedTest(name = "user entry : ''{0}''")
@@ -89,7 +89,7 @@ class InteractiveShellTest {
             //GIVEN
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn(expectedVehicleRegNumber);
             //WHEN
-            String vehicleRegNumber = interactiveShell.getVehichleRegNumber();
+            String vehicleRegNumber = interactiveShell.getVehicleRegNumber();
 
             //THEN
             verify(outStream).println("Please type the vehicle registration number and press enter key");
@@ -99,7 +99,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Get vehicle type")
-    class GetVehicleType {
+    class GetVehicleTypeTest {
         @DisplayName("Check that getVehicleType outputs expected vehicle type message and returns user entry")
         @ParameterizedTest(name = "user entry: ''{0}''")
         @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE/2, 0, Integer.MAX_VALUE/2, Integer.MAX_VALUE })
@@ -107,7 +107,7 @@ class InteractiveShellTest {
             //GIVEN
             when(inputReaderUtil.readSelection()).thenReturn(expectedVehicleType);
             //WHEN
-            int actionNumber = interactiveShell.getVehichleType();
+            int actionNumber = interactiveShell.getVehicleType();
             //THEN
             verify(outStream).println("Please select vehicle type from menu");
             verify(outStream).println("1 CAR");
@@ -118,7 +118,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Print error")
-    class PrintError {
+    class PrintErrorTest {
 
         @DisplayName("Check that printError outputs expected error message")
         @ParameterizedTest(name = "error message: ''{0}''")
@@ -134,7 +134,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Print incoming vehicle info")
-    class PrintIncomingVehicleInfo {
+    class PrintIncomingVehicleInfoTest {
 
         @Test
         @DisplayName("Check that printIncomingVehicleInfo outputs error message when ticket is null")
@@ -161,7 +161,7 @@ class InteractiveShellTest {
         void printIncomingVehicleInfoWithGoodTicket() throws ParseException {
             //GIVEN
             SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date expectedDateHour = dateFormater.parse("01/01/1990 00:01:02"); ;
+            Date expectedDateHour = dateFormater.parse("01/01/1990 00:01:02");
             Ticket ticket = new Ticket();
             ticket.setParkingSpot(new ParkingSpot(8, ParkingType.CAR, true));
             ticket.setInTime(expectedDateHour);
@@ -179,7 +179,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Print exiting vehicle info")
-    class PrintExitingVehicleInfo {
+    class PrintExitingVehicleInfoTest {
 
         @Test
         @DisplayName("Check that printExitingVehicleInfo outputs error message when ticket is null")
@@ -195,7 +195,7 @@ class InteractiveShellTest {
         void printExitingVehicleInfoWithGoodTicket() throws ParseException {
             //GIVEN
             SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date expectedDateHour = dateFormater.parse("31/12/5000 18:45:59"); ;
+            Date expectedDateHour = dateFormater.parse("31/12/5000 18:45:59");
             Ticket ticket = new Ticket();
             ticket.setOutTime(expectedDateHour);
             ticket.setPrice(3.5946);
@@ -211,7 +211,7 @@ class InteractiveShellTest {
 
     @Nested
     @DisplayName("Stop interface")
-    class StopInterface {
+    class StopInterfaceTest {
         @Test
         @DisplayName("Check that stopInterface outputs exiting application message")
         void stopInterface() {
