@@ -5,6 +5,9 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
+    //Feature STORY#1 : Free 30-min parking
+    private static final double freeFareInHour = 0.5f;
+
     public void calculateFare(Ticket ticket){
         if((ticket.getOutTime() == null) || ticket.getInTime() == null ){
             throw new NullPointerException("Null pointer detected In time:" +
@@ -17,7 +20,8 @@ public class FareCalculatorService {
         long inTimeInMs = ticket.getInTime().getTime();
         long outTimeInMs = ticket.getOutTime().getTime();
 
-        double durationInHour = (outTimeInMs - inTimeInMs) / 3600000f;
+        //Feature STORY#1 : Free 30-min parking
+        double durationInHour = Math.max (0, ((outTimeInMs - inTimeInMs) / 3600000f) - freeFareInHour);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {

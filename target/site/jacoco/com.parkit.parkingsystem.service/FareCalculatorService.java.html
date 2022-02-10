@@ -5,31 +5,35 @@ import com.parkit.parkingsystem.model.Ticket;
 
 <span class="fc" id="L6">public class FareCalculatorService {</span>
 
+    //Feature STORY#1 : Free 30-min parking
+    private static final double freeFareInHour = 0.5f;
+
     public void calculateFare(Ticket ticket){
-<span class="fc bfc" id="L9" title="All 4 branches covered.">        if((ticket.getOutTime() == null) || ticket.getInTime() == null ){</span>
-<span class="fc" id="L10">            throw new NullPointerException(&quot;Null pointer detected In time:&quot; +</span>
-<span class="fc" id="L11">                    ticket.getInTime() + &quot; ; Out time&quot; + ticket.getOutTime());</span>
+<span class="fc bfc" id="L12" title="All 4 branches covered.">        if((ticket.getOutTime() == null) || ticket.getInTime() == null ){</span>
+<span class="fc" id="L13">            throw new NullPointerException(&quot;Null pointer detected In time:&quot; +</span>
+<span class="fc" id="L14">                    ticket.getInTime() + &quot; ; Out time&quot; + ticket.getOutTime());</span>
         }
-<span class="fc bfc" id="L13" title="All 2 branches covered.">        if (ticket.getOutTime().before(ticket.getInTime())){</span>
-<span class="fc" id="L14">            throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;+ticket.getOutTime().toString());</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (ticket.getOutTime().before(ticket.getInTime())){</span>
+<span class="fc" id="L17">            throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;+ticket.getOutTime().toString());</span>
         }
 
-<span class="fc" id="L17">        long inTimeInMs = ticket.getInTime().getTime();</span>
-<span class="fc" id="L18">        long outTimeInMs = ticket.getOutTime().getTime();</span>
+<span class="fc" id="L20">        long inTimeInMs = ticket.getInTime().getTime();</span>
+<span class="fc" id="L21">        long outTimeInMs = ticket.getOutTime().getTime();</span>
 
-<span class="fc" id="L20">        double durationInHour = (outTimeInMs - inTimeInMs) / 3600000f;</span>
+        //Feature STORY#1 : Free 30-min parking
+<span class="fc" id="L24">        double durationInHour = Math.max (0, ((outTimeInMs - inTimeInMs) / 3600000f) - freeFareInHour);</span>
 
-<span class="pc bpc" id="L22" title="1 of 3 branches missed.">        switch (ticket.getParkingSpot().getParkingType()){</span>
+<span class="pc bpc" id="L26" title="1 of 3 branches missed.">        switch (ticket.getParkingSpot().getParkingType()){</span>
             case CAR: {
-<span class="fc" id="L24">                ticket.setPrice(durationInHour * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L25">                break;</span>
-            }
-            case BIKE: {
-<span class="fc" id="L28">                ticket.setPrice(durationInHour * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L28">                ticket.setPrice(durationInHour * Fare.CAR_RATE_PER_HOUR);</span>
 <span class="fc" id="L29">                break;</span>
             }
-<span class="nc" id="L31">            default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
+            case BIKE: {
+<span class="fc" id="L32">                ticket.setPrice(durationInHour * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L33">                break;</span>
+            }
+<span class="nc" id="L35">            default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
         }
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L37">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
