@@ -150,6 +150,41 @@ public class ParkingServiceTest {
                     );
             assertEquals(ticketCaptor.getValue(), returnedTicket);
         }
+
+        @DisplayName("Check that processExitingVehicle returns expected ticket with a discount of 5 percent " +
+                " if user has entered parking previously.")
+        @ParameterizedTest(name="number of previous entries: ''{0}'' ; expected discount : ''{1}''")
+        @CsvSource({"-2147483648, 0", "-1,0","0,0","1,5", "2147483647,5"})
+        public void processExitingVehicleForRecurringUser(int nbPreviousEntries, double expectedDiscount){
+
+            final ArgumentCaptor<Ticket> ticketCaptor = ArgumentCaptor.forClass(Ticket.class);
+
+            //construct DAO ticket
+            Date inTime = new Date();
+            inTime.setTime(System.currentTimeMillis() - (5 * 60 * 60 * 1000) ); //only 4,5h are to be paid
+
+            Ticket ticketFromDao = new Ticket();
+            ticketFromDao.setInTime(inTime);
+            ticketFromDao.setVehicleRegNumber(VEHICULE_REG_NUMBER);
+            ticketFromDao.setParkingSpot(new ParkingSpot(1,ParkingType.CAR, false));
+
+            //ASSUME
+            when(ticketDAO.getTicket(any(String.class))).thenReturn(ticketFromDao);
+            when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
+            when(ticketDAO.getNbPaidTickets(any(String.class))).thenReturn(nbPreviousEntries);
+
+            //ACTION
+            parkingService.processExitingVehicle(VEHICULE_REG_NUMBER);
+
+            //CHECK
+            verify(ticketDAO, times(1)).getTicket(VEHICULE_REG_NUMBER);
+            verify(ticketDAO, times(1)).updateTicket(ticketCaptor.capture());
+            verify(ticketDAO, times(1)).getNbPaidTickets(any(String.class));
+            verify(parkingSpotDAO, times(1)).updateParking(any(ParkingSpot.class));
+
+            assertEquals(expectedDiscount, ticketCaptor.getValue().getDiscountInPercent());
+            assertEquals((1-expectedDiscount/100)* 4.5 * 1.5, ticketCaptor.getValue().getPrice(),0.001);
+        }
     }
 
     @Nested

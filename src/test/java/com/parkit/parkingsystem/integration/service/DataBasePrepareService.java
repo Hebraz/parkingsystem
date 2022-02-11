@@ -1,8 +1,12 @@
 package com.parkit.parkingsystem.integration.service;
 
+import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
+import com.parkit.parkingsystem.model.Ticket;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 
 public class DataBasePrepareService {
 

@@ -9,6 +9,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
+    private double discount;
 
     public int getId() {
         return id;
@@ -56,5 +57,15 @@ public class Ticket {
 
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
+    }
+
+    public double getDiscountInPercent() {
+        return discount;
+    }
+
+    public void setDiscountInPercent(double discount) {
+        if(discount >= 0 && discount <= 100){
+            this.discount = discount;
+        }
     }
 }

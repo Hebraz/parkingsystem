@@ -64,6 +64,10 @@ public class TicketDAO {
         return ticket;
     }
 
+    public int getNbPaidTickets(String vehicleRegNumber){
+        return 0;
+    }
+
     public boolean updateTicket(Ticket ticket) {
         boolean executionStatus = false;
         try(Connection con = dataBaseConfig.getConnection()) {

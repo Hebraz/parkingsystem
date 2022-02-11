@@ -164,14 +164,14 @@ public class FareCalculatorServiceTest {
         @DisplayName("Check calculateFare computes fare with 30 first minutes free")
         @CsvSource({"CAR, 1, 0", "CAR, 15, 0", "CAR, 30, 0", "CAR, 31, 1", "CAR, 60, 30", "CAR, 21600, 21570"/*15 days*/,
                 "BIKE, 1, 0", "BIKE, 15, 0", "BIKE, 30, 0", "BIKE, 31, 1", "BIKE, 60, 30", "BIKE, 21600, 21570"/*15 days*/ })
-        public void calculateFareCarFirst30MinutesFree(String parkingTypeStr, int parkingTimeInMinutes, int expectedTimeToPayInMinutes){
+        public void calculateFareFirst30MinutesFree(String parkingTypeStr, int parkingTimeInMinutes, int expectedTimeToPayInMinutes){
 
             //PREPARE TICKET
             double fare_rate;
             ParkingType parkingType = ParkingType.valueOf(parkingTypeStr);
             switch (parkingType){
-                case CAR: fare_rate = Fare.CAR_RATE_PER_HOUR; break;
-                case BIKE: fare_rate = Fare.BIKE_RATE_PER_HOUR; break;
+                case CAR: fare_rate = 1.5; break;
+                case BIKE: fare_rate = 1.0; break;
                 default:fare_rate=0;
             }
 
@@ -192,7 +192,42 @@ public class FareCalculatorServiceTest {
             //CHECK
             assertEquals( expectedFare , ticket.getPrice(), fareAcceptedDeltaForEquality);
         }
+
+        @ParameterizedTest(name ="Vehicle type : ''{0}'' , Parking time : ''{1}'' minutes , discount : ''{2}'' %")
+        @DisplayName("Check calculateFare takes into account ticket discount")
+        @CsvSource({"CAR, 15, 5", "CAR, 60, 100", "CAR, 600, 0","CAR, 21600, 1"/*15 days*/,
+                "BIKE, 30, 10", "BIKE, 100, 5", "BIKE, 6000, 99", "BIKE, 21600, 100"/*15 days*/ })
+        public void calculateFareDiscountToApply(String parkingTypeStr, int parkingTimeInMinutes, double discount){
+
+            //PREPARE TICKET
+            ParkingType parkingType = ParkingType.valueOf(parkingTypeStr);
+
+            Date inTime = new Date();
+            inTime.setTime( System.currentTimeMillis() - (  parkingTimeInMinutes * 60 * 1000) );
+            Date outTime = new Date();
+            ParkingSpot parkingSpot = new ParkingSpot(1, parkingType,false);
+
+            ticket.setInTime(inTime);
+            ticket.setDiscountInPercent(discount);
+            ticket.setOutTime(outTime);
+            ticket.setParkingSpot(parkingSpot);
+
+            //ACT
+            fareCalculatorService.calculateFare(ticket);
+
+            //CHECK
+            double fare_rate;
+
+            switch (parkingType){
+                case CAR: fare_rate = 1.5; break;
+                case BIKE: fare_rate = 1.0; break;
+                default:fare_rate=0;
+            }
+
+            int parkingTimeToPayInMinutes = Math.max(0, parkingTimeInMinutes - 30);
+            double expectedFare = ((double)parkingTimeToPayInMinutes / 60.0f) * fare_rate * (1-discount/100f);
+
+            assertEquals( expectedFare , ticket.getPrice(), fareAcceptedDeltaForEquality);
+        }
     }
-
-
 }
