@@ -14,15 +14,17 @@ import org.apache.logging.log4j.Logger;
     public static void main(String ... args){
 <span class="nc" id="L15">        logger.info(&quot;Initializing Parking System&quot;);</span>
 
-<span class="nc" id="L17">        TicketDAO ticketDAO = new TicketDAO();</span>
-<span class="nc" id="L18">        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();</span>
-<span class="nc" id="L19">        ParkingService parkingService = new ParkingService(parkingSpotDAO, ticketDAO);</span>
-
-<span class="nc" id="L21">        InputReaderUtil inputReaderUtil = new InputReaderUtil(System.in);</span>
-<span class="nc" id="L22">        InteractiveShell interactiveShell = new InteractiveShell(inputReaderUtil, System.out);</span>
-<span class="nc" id="L23">        ParkingController parkingController = new ParkingController(interactiveShell, parkingService);</span>
-
-<span class="nc" id="L25">        parkingController.start();</span>
-<span class="nc" id="L26">    }</span>
+        //CREATE UTILS INSTANCES
+<span class="nc" id="L18">        InputReaderUtil inputReaderUtil = new InputReaderUtil(System.in);</span>
+        //CREATE DAO INSTANCES
+<span class="nc" id="L20">        TicketDAO ticketDAO = new TicketDAO();</span>
+<span class="nc" id="L21">        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();</span>
+        //CREATE VIEW CONTROLLER AND SERVICES INSTANCES
+<span class="nc" id="L23">        ParkingService parkingService = new ParkingService(parkingSpotDAO, ticketDAO);</span>
+<span class="nc" id="L24">        InteractiveShell interactiveShell = new InteractiveShell(inputReaderUtil, System.out);</span>
+<span class="nc" id="L25">        ParkingController parkingController = new ParkingController(interactiveShell, parkingService);</span>
+        //START APPLICATION
+<span class="nc" id="L27">        parkingController.start();</span>
+<span class="nc" id="L28">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

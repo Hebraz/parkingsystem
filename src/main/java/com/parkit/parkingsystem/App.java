@@ -14,14 +14,16 @@ public class App {
     public static void main(String ... args){
         logger.info("Initializing Parking System");
 
+        //CREATE UTILS INSTANCES
+        InputReaderUtil inputReaderUtil = new InputReaderUtil(System.in);
+        //CREATE DAO INSTANCES
         TicketDAO ticketDAO = new TicketDAO();
         ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
+        //CREATE VIEW CONTROLLER AND SERVICES INSTANCES
         ParkingService parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
-
-        InputReaderUtil inputReaderUtil = new InputReaderUtil(System.in);
         InteractiveShell interactiveShell = new InteractiveShell(inputReaderUtil, System.out);
         ParkingController parkingController = new ParkingController(interactiveShell, parkingService);
-
+        //START APPLICATION
         parkingController.start();
     }
 }

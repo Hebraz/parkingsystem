@@ -29,7 +29,7 @@ import java.sql.Timestamp;
 <span class="fc" id="L29">                ps.setString(2, ticket.getVehicleRegNumber());</span>
 <span class="fc" id="L30">                ps.setDouble(3, ticket.getPrice());</span>
 <span class="fc" id="L31">                ps.setTimestamp(4, new Timestamp(ticket.getInTime().getTime()));</span>
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (new Timestamp(ticket.getOutTime().getTime())));</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">                ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (new Timestamp(ticket.getOutTime().getTime())));</span>
 <span class="fc" id="L33">                executionStatus = ps.execute();</span>
             }
         }
@@ -64,21 +64,41 @@ import java.sql.Timestamp;
 <span class="fc" id="L64">        return ticket;</span>
     }
 
+
+    public int getNbPaidTickets(String vehicleRegNumber){
+<span class="fc" id="L69">        int nbPaidTickets=0;</span>
+<span class="fc" id="L70">        try(Connection con = dataBaseConfig.getConnection()) {</span>
+<span class="fc" id="L71">            try (PreparedStatement ps = con.prepareStatement(DBConstants.GET_NB_PAID_TICKETS)) {</span>
+                //ID, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+<span class="fc" id="L73">                ps.setString(1, vehicleRegNumber);</span>
+<span class="fc" id="L74">                try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">                    if (rs.next()) {</span>
+<span class="fc" id="L76">                        nbPaidTickets  = rs.getInt(1);</span>
+                    }
+                }
+            }
+<span class="nc" id="L80">        }catch (Exception ex){</span>
+<span class="nc" id="L81">            logger.error(&quot;Error fetching next available slot&quot;,ex);</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        return nbPaidTickets;</span>
+    }
+
+
     public boolean updateTicket(Ticket ticket) {
-<span class="fc" id="L68">        boolean executionStatus = false;</span>
-<span class="fc" id="L69">        try(Connection con = dataBaseConfig.getConnection()) {</span>
-<span class="fc" id="L70">            try(PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_TICKET)){</span>
-<span class="fc" id="L71">                ps.setDouble(1, ticket.getPrice());</span>
-<span class="fc" id="L72">                ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));</span>
-<span class="fc" id="L73">                ps.setInt(3, ticket.getId());</span>
-<span class="fc" id="L74">                ps.execute();</span>
-<span class="fc" id="L75">                executionStatus = true;</span>
+<span class="fc" id="L88">        boolean executionStatus = false;</span>
+<span class="fc" id="L89">        try(Connection con = dataBaseConfig.getConnection()) {</span>
+<span class="fc" id="L90">            try(PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_TICKET)){</span>
+<span class="fc" id="L91">                ps.setDouble(1, ticket.getPrice());</span>
+<span class="fc" id="L92">                ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));</span>
+<span class="fc" id="L93">                ps.setInt(3, ticket.getId());</span>
+<span class="fc" id="L94">                ps.execute();</span>
+<span class="fc" id="L95">                executionStatus = true;</span>
             }
         }
-<span class="nc" id="L78">        catch (Exception ex){</span>
-<span class="nc" id="L79">            logger.error(&quot;Error saving ticket info&quot;,ex);</span>
-<span class="fc" id="L80">        }</span>
-<span class="fc" id="L81">        return executionStatus;</span>
+<span class="nc" id="L98">        catch (Exception ex){</span>
+<span class="nc" id="L99">            logger.error(&quot;Error saving ticket info&quot;,ex);</span>
+<span class="fc" id="L100">        }</span>
+<span class="fc" id="L101">        return executionStatus;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

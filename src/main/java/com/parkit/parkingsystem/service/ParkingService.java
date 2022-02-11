@@ -8,21 +8,36 @@ import com.parkit.parkingsystem.model.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Properties;
 
 public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
-
     private static final FareCalculatorService fareCalculatorService = new FareCalculatorService();
+    //Feature STORY#2 : discount for recurring users
+    private double discountPercent;
 
     private final ParkingSpotDAO parkingSpotDAO;
     private final TicketDAO ticketDAO;
 
-    public ParkingService(ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
+    public ParkingService(ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO) {
         this.parkingSpotDAO = parkingSpotDAO;
         this.ticketDAO = ticketDAO;
+
+        //Feature STORY#2 : load discount value from property file
+        Properties prop = new Properties();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+                prop.load(inputStream);
+                discountPercent = Double.parseDouble(prop.getProperty("discountPercent"));
+        }
+        catch (IOException e) {
+            logger.info("Fail to load discountPercent property from config.properties : " + e.getMessage());
+            discountPercent = 0;
+        }
     }
 
     public Ticket processIncomingVehicle(ParkingType parkingType, String vehicleRegNumber ) {
@@ -36,7 +51,6 @@ public class ParkingService {
             Date inTime = new Date();
             ticket = new Ticket();
             //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-            //ticket.setId(ticketID);
             ticket.setParkingSpot(parkingSpot);
             ticket.setVehicleRegNumber(vehicleRegNumber);
             ticket.setPrice(0);
@@ -44,11 +58,8 @@ public class ParkingService {
             ticket.setOutTime(null);
             ticketDAO.saveTicket(ticket);
         }
-
         return ticket;
     }
-
-
 
     public ParkingSpot getNextParkingNumberIfAvailable(ParkingType parkingType){
         int parkingNumber;
@@ -75,6 +86,12 @@ public class ParkingService {
             if(Objects.nonNull(ticket)) {
                 Date outTime = new Date();
                 ticket.setOutTime(outTime);
+
+                //Feature STORY#2 : 5%-discount for recurring users
+                if(ticketDAO.getNbPaidTickets(vehicleRegNumber) > 0){
+                    ticket.setDiscountInPercent(discountPercent);
+                }
+
                 fareCalculatorService.calculateFare(ticket);
                 if (ticketDAO.updateTicket(ticket)) {
                     ParkingSpot parkingSpot = ticket.getParkingSpot();

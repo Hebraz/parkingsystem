@@ -128,7 +128,6 @@ public class ParkingDataBaseIT {
         secondTicketEntrance.setVehicleRegNumber(vehiculeRegistrationNumber);
         secondTicketEntrance.setParkingSpot(new ParkingSpot(1,ParkingType.CAR, true));
         secondTicketEntrance.setInTime(new Date(dataInSecondTicketInMs)); //second entrance 3h ago
-        System.out.println("########" +secondTicketEntrance.getInTime().getTime());
         secondTicketEntrance.setOutTime(null);
         secondTicketEntrance.setPrice(0.0);
         ticketDAO.saveTicket(secondTicketEntrance);
@@ -141,8 +140,8 @@ public class ParkingDataBaseIT {
         //CHECK
         //retrieve ticket from database, Check that ticket has been found in DB with right data
         Ticket ticket = ticketDAO.getTicket(vehiculeRegistrationNumber);
-        assertEquals((double)dataInSecondTicketInMs, (double)ticket.getInTime().getTime(), 500);//500 ms tolerance//500 ms tolerance as miliseconds are lost in db
-        assertEquals((double)dataOutSecondTicketInMs, (double)ticket.getOutTime().getTime(), 500); //500 ms tolerance as miliseconds are lost in db
+        assertEquals((double)dataInSecondTicketInMs, (double)ticket.getInTime().getTime(), 500);//500 ms tolerance//500 ms tolerance as milliseconds are lost in db
+        assertEquals((double)dataOutSecondTicketInMs, (double)ticket.getOutTime().getTime(), 500); //500 ms tolerance as milliseconds are lost in db
 
         //expected price with discount :
         double timeInHourToPay = ((dataOutSecondTicketInMs - dataInSecondTicketInMs) / (3600000)) - 0.5; //30 minutes free
