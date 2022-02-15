@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
@@ -17,11 +18,6 @@ public class InteractiveShell {
     private final PrintStream outStream;
     private final SimpleDateFormat dateFormater;
 
-    public InteractiveShell(InputReaderUtil inputReaderUtil, PrintStream outStream) {
-        this.inputReaderUtil = inputReaderUtil;
-        this.outStream = outStream;
-        this.dateFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    }
 
     public void startInterface() {
         logger.info("App initialized!!!");
@@ -56,12 +52,22 @@ public class InteractiveShell {
 
     public void printIncomingVehicleInfo(Ticket ticket){
         if(Objects.nonNull(ticket) && Objects.nonNull(ticket.getParkingSpot())){
+            if(ticket.getDiscountInPercent() > 0){
+                outStream.println("Welcome back! As a recurring user of our parking lot, you'll benefit from a "+ String.format("%.2f", ticket.getDiscountInPercent()) + "% discount.");
+            }
             outStream.println("Generated Ticket and saved in DB");
             outStream.println("Please park your vehicle in spot number:"+ ticket.getParkingSpot().getId());
             outStream.println("Recorded in-time for vehicle number:"+ ticket.getVehicleRegNumber() +" is:"+ dateFormater.format(ticket.getInTime()));
         } else {
             outStream.println("Unable to process incoming vehicle.");
         }
+    }
+
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
+    public InteractiveShell(InputReaderUtil inputReaderUtil, PrintStream outStream) {
+        this.inputReaderUtil = inputReaderUtil;
+        this.outStream = outStream;
+        this.dateFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
 
     public void printExitingVehicleInfo(Ticket ticket){

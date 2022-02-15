@@ -154,7 +154,7 @@ public class ParkingServiceTest {
         @DisplayName("Check that processExitingVehicle returns expected ticket with a discount of 5 percent " +
                 " if user has entered parking previously.")
         @ParameterizedTest(name="number of previous entries: ''{0}'' ; expected discount : ''{1}''")
-        @CsvSource({"-2147483648, 0", "-1,0","0,0","1,5", "2147483647,5"})
+        @CsvSource({"-2147483648, 0", "0,0","1,5", "2147483647,5"})
         public void processExitingVehicleForRecurringUser(int nbPreviousEntries, double expectedDiscount){
 
             final ArgumentCaptor<Ticket> ticketCaptor = ArgumentCaptor.forClass(Ticket.class);
@@ -228,7 +228,6 @@ public class ParkingServiceTest {
                 " and ticket as expected for a car and bike")
         @ParameterizedTest(name= "process incoming of ''{0}'' with regNumber ''{1}'' in parking spot n° ''{2}''")
         @CsvSource({"CAR, ?;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ, 1",
-                    "CAR, AaZz09, 2147483647",
                     "BIKE, With blank, 1564"})
         public void processIncomingVehicle(String parkingTypeStr, String regNumber, int parkingSpotId){
 
@@ -264,16 +263,37 @@ public class ParkingServiceTest {
                     .extracting(Ticket::getParkingSpot,
                             Ticket::getVehicleRegNumber,
                             Ticket::getPrice,
-                            Ticket::getInTime,
                             Ticket::getOutTime)
                     .containsExactly(
                             parkingSpotCaptor.getValue(),
                             regNumber,
                             0.0,
-                            actionDate,
                             null
                     );
+            assertEquals((double)actionDate.getTime(), (double)ticketCaptor.getValue().getInTime().getTime(),(double)5);
+
             assertEquals(ticketCaptor.getValue(), returnedTicket);
+        }
+
+        @DisplayName("Check that processIncomingVehicle returns ticket with a discount of 5 percent " +
+                " if user has entered parking previously.")
+        @ParameterizedTest(name="number of previous entries: ''{0}'' ; expected discount : ''{1}''")
+        @CsvSource({"1,5", "2147483647,5"})
+        public void processIncomingVehicleForRecurringUser(int nbPreviousEntries, double expectedDiscount){
+
+            //ASSUME
+            ParkingSpot nextAvailableParkingSpot = new ParkingSpot(1, ParkingType.CAR, true);
+            doReturn(nextAvailableParkingSpot).when(parkingService).getNextParkingNumberIfAvailable(ParkingType.CAR);
+            when(ticketDAO.getNbPaidTickets(any(String.class))).thenReturn(nbPreviousEntries);
+
+            //ACTION
+            Ticket returnedTicket = parkingService.processIncomingVehicle(ParkingType.CAR, VEHICULE_REG_NUMBER);
+
+            //CHECK
+            verify(ticketDAO, times(1)).saveTicket(any(Ticket.class));
+            verify(ticketDAO, times(1)).getNbPaidTickets(VEHICULE_REG_NUMBER);
+
+            assertEquals(expectedDiscount, returnedTicket.getDiscountInPercent());
         }
     }
 
@@ -296,7 +316,7 @@ public class ParkingServiceTest {
         }
 
         @ParameterizedTest(name= "available slot: type:''{0}'' ; id:''{1}''")
-        @CsvSource({"CAR, 1","BIKE, 1073741823", "CAR, 2147483647"})
+        @CsvSource({"CAR, 1", "BIKE, 2147483647"})
         @DisplayName("Check that getNextParkingNumberIfAvailable returns ParkingSlot when there is an available one in database")
         public void getNextParkingNumberIfAvailableSlotAvailable(String parkingTypeStr, int availableSlotId) {
 

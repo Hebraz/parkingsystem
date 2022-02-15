@@ -7,6 +7,7 @@ public class FareCalculatorService {
 
     //Feature STORY#1 : Free 30-min parking
     private static final double freeFareInHour = 0.5f;
+    private static final double MILLISECONDS_IN_ONE_HOUR = 3600000f;
 
     public void calculateFare(Ticket ticket){
         if((ticket.getOutTime() == null) || ticket.getInTime() == null ){
@@ -21,7 +22,7 @@ public class FareCalculatorService {
         long outTimeInMs = ticket.getOutTime().getTime();
 
         //Feature STORY#1 : Free 30-min parking
-        double durationInHour = Math.max (0, ((outTimeInMs - inTimeInMs) / 3600000f) - freeFareInHour);
+        double durationInHour = Math.max (0, ((outTimeInMs - inTimeInMs) / MILLISECONDS_IN_ONE_HOUR) - freeFareInHour);
         //Feature STORY#2 : x%-discount for recurring
         double discountRate = ticket.getDiscountInPercent()/100f;
 

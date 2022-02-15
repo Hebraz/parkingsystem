@@ -1,6 +1,7 @@
 package com.parkit.parkingsystem.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Ticket {
     private int id;
@@ -20,11 +21,19 @@ public class Ticket {
     }
 
     public ParkingSpot getParkingSpot() {
-        return parkingSpot;
+        if(Objects.nonNull(parkingSpot)) {
+            return new ParkingSpot(parkingSpot.getId(), parkingSpot.getParkingType(), parkingSpot.isAvailable());
+        } else {
+            return null;
+        }
     }
 
     public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
+        if(Objects.nonNull(parkingSpot)) {
+            this.parkingSpot = new ParkingSpot(parkingSpot.getId(), parkingSpot.getParkingType(), parkingSpot.isAvailable());
+        } else {
+            this.parkingSpot = null;
+        }
     }
 
     public String getVehicleRegNumber() {
@@ -44,19 +53,35 @@ public class Ticket {
     }
 
     public Date getInTime() {
-        return inTime;
+        if(Objects.nonNull(inTime)) {
+            return new Date(inTime.getTime());
+        } else {
+            return null;
+        }
     }
 
     public void setInTime(Date inTime) {
-        this.inTime = inTime;
+        if(Objects.nonNull(inTime)) {
+            this.inTime = new Date(inTime.getTime());
+        } else {
+            this.inTime = null;
+        }
     }
 
     public Date getOutTime() {
-        return outTime;
+        if(Objects.nonNull(outTime)) {
+            return new Date(outTime.getTime());
+        } else {
+            return null;
+        }
     }
 
     public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+        if(Objects.nonNull(outTime)) {
+            this.outTime = new Date(outTime.getTime());
+        } else {
+            this.outTime = null;
+        }
     }
 
     public double getDiscountInPercent() {

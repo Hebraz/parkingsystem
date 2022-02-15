@@ -47,6 +47,7 @@ public class ParkingController{
     public void processExitingVehicle() {
         String vehicleRegNumber;
         try {
+
             vehicleRegNumber = interactiveShell.getVehicleRegNumber();
             Ticket ticket = parkingService.processExitingVehicle(vehicleRegNumber);
             interactiveShell.printExitingVehicleInfo(ticket);

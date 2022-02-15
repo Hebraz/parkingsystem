@@ -5,9 +5,7 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
-import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
-import com.parkit.parkingsystem.service.FareCalculatorService;
 import com.parkit.parkingsystem.service.ParkingService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.Instant;
-import java.time.temporal.TemporalAccessor;
-import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -82,10 +75,11 @@ public class ParkingDataBaseIT {
     @DisplayName("Check that when a car exits from parking, ticket ant parking spot are well updated into database")
     public void testParkingLotExit() throws InterruptedException {
         //INIT TEST -> execute incoming vehicle
-        testParkingACar();
-
-        //wait a while for price computation
-        Thread.sleep(1000);
+        //Add a ticket into database that corresponds car entering one hour ago
+        dataBasePrepareService.addTicketToDatabase(  vehiculeRegistrationNumber, 1,ParkingType.CAR, true,
+                System.currentTimeMillis() - (3600*1000),
+                0,
+                0.0);
 
         //ACT
         ParkingService parkingService = new ParkingService( parkingSpotDAO, ticketDAO);
@@ -114,25 +108,18 @@ public class ParkingDataBaseIT {
 
         //PREPARE
         //Add a ticket into database that corresponds to the first time the car comes into parking
-        Ticket firstTicket = new Ticket();
-        firstTicket.setVehicleRegNumber(vehiculeRegistrationNumber);
-        firstTicket.setParkingSpot(new ParkingSpot(1,ParkingType.CAR, true));
-        firstTicket.setInTime(new Date(System.currentTimeMillis() - (48*3600*1000))); //first entrance 48h ago
-        firstTicket.setOutTime(new Date(System.currentTimeMillis() - (47*3600*1000))); //first entrance 47h ago
-        firstTicket.setPrice(0.75);
-        ticketDAO.saveTicket(firstTicket);
+        dataBasePrepareService.addTicketToDatabase(  vehiculeRegistrationNumber, 1,ParkingType.CAR, true,
+                System.currentTimeMillis() - (48*3600*1000), //first entrance 48h ago
+                System.currentTimeMillis() - (47*3600*1000),//first exit 47h ago
+                0.75);
 
         //A ticket into database that corresponds to the second entrance
         long dataInSecondTicketInMs = System.currentTimeMillis() - (3*3600*1000);//second entrance 3h ago
-        Ticket secondTicketEntrance = new Ticket();
-        secondTicketEntrance.setVehicleRegNumber(vehiculeRegistrationNumber);
-        secondTicketEntrance.setParkingSpot(new ParkingSpot(1,ParkingType.CAR, true));
-        secondTicketEntrance.setInTime(new Date(dataInSecondTicketInMs)); //second entrance 3h ago
-        secondTicketEntrance.setOutTime(null);
-        secondTicketEntrance.setPrice(0.0);
-        ticketDAO.saveTicket(secondTicketEntrance);
-
-        //AC
+        dataBasePrepareService.addTicketToDatabase(  vehiculeRegistrationNumber, 1,ParkingType.CAR, false,
+                dataInSecondTicketInMs, //second entrance 3h ago
+                0, //no exit
+                0.0);
+         //ACT
         ParkingService parkingService = new ParkingService( parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle(vehiculeRegistrationNumber);
         long dataOutSecondTicketInMs = System.currentTimeMillis();
@@ -144,7 +131,7 @@ public class ParkingDataBaseIT {
         assertEquals((double)dataOutSecondTicketInMs, (double)ticket.getOutTime().getTime(), 500); //500 ms tolerance as milliseconds are lost in db
 
         //expected price with discount :
-        double timeInHourToPay = ((dataOutSecondTicketInMs - dataInSecondTicketInMs) / (3600000)) - 0.5; //30 minutes free
+        double timeInHourToPay = ((dataOutSecondTicketInMs - dataInSecondTicketInMs) / (3600000f)) - 0.5; //30 minutes free
         double expectedTicketPrice = (timeInHourToPay * 1.5 /*fare rate for car*/) * 0.95; /*5% discount*/
 
         assertEquals(expectedTicketPrice, ticket.getPrice(), 0.001 );

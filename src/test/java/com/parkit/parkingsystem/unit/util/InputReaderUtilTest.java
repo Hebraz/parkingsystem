@@ -62,7 +62,7 @@ class InputReaderUtilTest {
 
         @DisplayName("Check that readVehicleRegistrationNumber returns user entry when it is a non null empty string")
         @ParameterizedTest(name = "user entry: ''{0}''")
-        @ValueSource(strings = { "0", "A", "AZaz09", "?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
+        @ValueSource(strings = { "AZaz09", "?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
         void readVehicleRegistrationNumberOk(String expectedVehicleRegNumber) throws Exception {
             //GIVEN
             initTest(expectedVehicleRegNumber+"\r\n");

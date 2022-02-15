@@ -19,7 +19,7 @@ public class ParkingService {
     private static final Logger logger = LogManager.getLogger("ParkingService");
     private static final FareCalculatorService fareCalculatorService = new FareCalculatorService();
     //Feature STORY#2 : discount for recurring users
-    private double discountPercent;
+    private static final double discountPercent=5;
 
     private final ParkingSpotDAO parkingSpotDAO;
     private final TicketDAO ticketDAO;
@@ -27,17 +27,6 @@ public class ParkingService {
     public ParkingService(ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO) {
         this.parkingSpotDAO = parkingSpotDAO;
         this.ticketDAO = ticketDAO;
-
-        //Feature STORY#2 : load discount value from property file
-        Properties prop = new Properties();
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-                prop.load(inputStream);
-                discountPercent = Double.parseDouble(prop.getProperty("discountPercent"));
-        }
-        catch (IOException e) {
-            logger.info("Fail to load discountPercent property from config.properties : " + e.getMessage());
-            discountPercent = 0;
-        }
     }
 
     public Ticket processIncomingVehicle(ParkingType parkingType, String vehicleRegNumber ) {
@@ -50,6 +39,12 @@ public class ParkingService {
 
             Date inTime = new Date();
             ticket = new Ticket();
+
+            //Feature STORY#2 : set discount to recurring users to display them the welcome back message !
+            if(ticketDAO.getNbPaidTickets(vehicleRegNumber) > 0){
+                ticket.setDiscountInPercent(discountPercent);
+            }
+
             //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
             ticket.setParkingSpot(parkingSpot);
             ticket.setVehicleRegNumber(vehicleRegNumber);
@@ -71,8 +66,6 @@ public class ParkingService {
             }else{
                 throw new Exception("Error fetching parking number from DB. Parking slots might be full");
             }
-        }catch(IllegalArgumentException ie){
-            logger.error("Error parsing user input for type of vehicle", ie);
         }catch(Exception e){
             logger.error("Error fetching next available parking slot", e);
         }

@@ -83,7 +83,7 @@ class InteractiveShellTest {
 
         @DisplayName("Check that getVehicleRegNumber outputs expected message and returns user entry")
         @ParameterizedTest(name = "user entry : ''{0}''")
-        @ValueSource(strings = { "A", "AZaz09", "0","?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
+        @ValueSource(strings = { "AZaz09","?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
         @MethodSource("com.parkit.parkingsystem.unit.view.InteractiveShellTest#blankStrings")
         void getVehicleRegNumber(String expectedVehicleRegNumber) throws Exception {
             //GIVEN
@@ -122,7 +122,7 @@ class InteractiveShellTest {
 
         @DisplayName("Check that printError outputs expected error message")
         @ParameterizedTest(name = "error message: ''{0}''")
-        @ValueSource(strings = { "A", "AZaz09", "0","?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
+        @ValueSource(strings = { "AZaz09", "?,;.:/!§&~é\"'{([-|è`_\\ç^@)]=}^¨$£%ù*µ"})
         @MethodSource("com.parkit.parkingsystem.unit.view.InteractiveShellTest#blankStrings")
         void printError(String expectedError) {
             //WHEN
@@ -166,6 +166,8 @@ class InteractiveShellTest {
             ticket.setParkingSpot(new ParkingSpot(8, ParkingType.CAR, true));
             ticket.setInTime(expectedDateHour);
             ticket.setVehicleRegNumber("ABCDEF");
+            ticket.setDiscountInPercent(0);
+
 
             //WHEN
             interactiveShell.printIncomingVehicleInfo(ticket);
@@ -173,6 +175,25 @@ class InteractiveShellTest {
             verify(outStream).println("Generated Ticket and saved in DB");
             verify(outStream).println("Please park your vehicle in spot number:8");
             verify(outStream).println("Recorded in-time for vehicle number:ABCDEF is:01/01/1990 00:01:02");
+            verifyNoMoreInteractions(outStream); // check that welcome back message is not printed
+        }
+
+        @Test
+        @DisplayName("Check that printIncomingVehicleInfo outputs welcom back message when ticket has a discount")
+        void printIncomingVehicleInfoWithDiscount() throws ParseException {
+            //GIVEN
+            SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date expectedDateHour = dateFormater.parse("01/01/1990 00:01:02");
+            Ticket ticket = new Ticket();
+            ticket.setParkingSpot(new ParkingSpot(8, ParkingType.CAR, true));
+            ticket.setInTime(expectedDateHour);
+            ticket.setVehicleRegNumber("ABCDEF");
+            ticket.setDiscountInPercent(5.0);
+
+            //WHEN
+            interactiveShell.printIncomingVehicleInfo(ticket);
+            //THEN
+            verify(outStream).println("Welcome back! As a recurring user of our parking lot, you'll benefit from a 5,00% discount.");
         }
     }
 

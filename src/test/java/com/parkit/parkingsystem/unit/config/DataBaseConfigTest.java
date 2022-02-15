@@ -36,7 +36,7 @@ class DataBaseConfigTest {
     @Nested
     @DisplayName("Close connection")
     class CloseConnectionTest {
-        @Test
+   @Test
         @DisplayName("Check that closeConnection call close method of connection instance if this one is not null")
         void closeConnectionNonNullConnectionParam() throws SQLException {
             //ASSUME
@@ -109,5 +109,4 @@ class DataBaseConfigTest {
             assertDoesNotThrow(() ->  dataBaseConfig.closeResultSet(null));
         }
     }
-
 }

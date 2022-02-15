@@ -162,8 +162,7 @@ public class FareCalculatorServiceTest {
 
         @ParameterizedTest(name ="Vehicle type : ''{0}'' , Parking time : ''{1}'' minutes , expected minutes to be paid : ''{2}''")
         @DisplayName("Check calculateFare computes fare with 30 first minutes free")
-        @CsvSource({"CAR, 1, 0", "CAR, 15, 0", "CAR, 30, 0", "CAR, 31, 1", "CAR, 60, 30", "CAR, 21600, 21570"/*15 days*/,
-                "BIKE, 1, 0", "BIKE, 15, 0", "BIKE, 30, 0", "BIKE, 31, 1", "BIKE, 60, 30", "BIKE, 21600, 21570"/*15 days*/ })
+        @CsvSource({"CAR, 1, 0", "BIKE, 30, 0", "BIKE, 31, 1", "CAR, 60, 30", "BIKE, 21600, 21570"/*15 days*/ })
         public void calculateFareFirst30MinutesFree(String parkingTypeStr, int parkingTimeInMinutes, int expectedTimeToPayInMinutes){
 
             //PREPARE TICKET
@@ -195,8 +194,7 @@ public class FareCalculatorServiceTest {
 
         @ParameterizedTest(name ="Vehicle type : ''{0}'' , Parking time : ''{1}'' minutes , discount : ''{2}'' %")
         @DisplayName("Check calculateFare takes into account ticket discount")
-        @CsvSource({"CAR, 15, 5", "CAR, 60, 100", "CAR, 600, 0","CAR, 21600, 1"/*15 days*/,
-                "BIKE, 30, 10", "BIKE, 100, 5", "BIKE, 6000, 99", "BIKE, 21600, 100"/*15 days*/ })
+        @CsvSource({"CAR, 15, 5", "BIKE, 60, 100", "CAR, 600, 0","BIKE, 21600, 1"/*15 days*/ })
         public void calculateFareDiscountToApply(String parkingTypeStr, int parkingTimeInMinutes, double discount){
 
             //PREPARE TICKET
